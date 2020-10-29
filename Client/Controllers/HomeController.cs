@@ -27,6 +27,15 @@ namespace Client.Controllers
         [Authorize]
         public async Task<IActionResult> Secret()
         {
+            //var token = await HttpContext.GetTokenAsync("access_token");
+            //var refreshToken = await HttpContext.GetTokenAsync("refresh_token");
+
+            //var client = _httpClientFactory.CreateClient();
+            //client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+            //var serverResponse = await client.GetAsync("https://localhost:44382/secret/index");
+            //var apiResponse = await client.GetAsync("https://localhost:44332/secret/index");
+
+
             var serverResponse = await AccessTokenRefreshWrapper(
                 () => SecuredGetRequest("https://localhost:44382/secret/index"));
 
@@ -89,12 +98,13 @@ namespace Client.Controllers
             var newAccessToken = responseData.GetValueOrDefault("access_token");
             var newRefreshToken = responseData.GetValueOrDefault("refresh_token");
 
-            var authInfo = await HttpContext.AuthenticateAsync("ClientCookie");
+            var authInfo = await HttpContext.AuthenticateAsync("ClientCookie"); //get the current content from the cookie and store into authInfo (AuthenticateResult)
 
-            authInfo.Properties.UpdateTokenValue("access_token", newAccessToken);
+            //authInfo (AuthenticateResult) contains the Principal(user info) and Ticket info (cookie and token info)
+            authInfo.Properties.UpdateTokenValue("access_token", newAccessToken);   //update info
             authInfo.Properties.UpdateTokenValue("refresh_token", newRefreshToken);
 
-            await HttpContext.SignInAsync("ClientCookie", authInfo.Principal, authInfo.Properties);
+            await HttpContext.SignInAsync("ClientCookie", authInfo.Principal, authInfo.Properties); //re-sign in with new token and update the cookie
         }
     }
 }

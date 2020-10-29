@@ -21,10 +21,14 @@ namespace Client
         {
             services.AddAuthentication(config => {
                 // We check the cookie to confirm that we are authenticated
+                //DefaultAuthenticateScheme. if specified, AuthenticateAsync() will use this scheme, and also the AuthenticationMiddleware added by 
+                //UseAuthentication() will use this scheme to set context.User automatically.
                 config.DefaultAuthenticateScheme = "ClientCookie";
                 // When we sign in we will deal out a cookie
+                //DefaultSignInScheme is used by SignInAsync() and also by all of the remote auth schemes like Google/Facebook/OIDC/OAuth, typically this would be set to a cookie.
                 config.DefaultSignInScheme = "ClientCookie";
                 // use this to check if we are allowed to do something.
+                //DefaultChallengeScheme if specified, ChallengeAsync() will use this scheme, [Authorize] with policies that don't specify schemes will also use this
                 config.DefaultChallengeScheme = "OurServer";
             })
                 .AddCookie("ClientCookie")
