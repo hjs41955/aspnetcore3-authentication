@@ -98,7 +98,7 @@ namespace Client.Controllers
             var newAccessToken = responseData.GetValueOrDefault("access_token");
             var newRefreshToken = responseData.GetValueOrDefault("refresh_token");
 
-            var authInfo = await HttpContext.AuthenticateAsync("ClientCookie"); //get the current content from the cookie and store into authInfo (AuthenticateResult)
+            var authInfo = await HttpContext.AuthenticateAsync("ClientCookie"); //Authenticate using the cookie info, and read cookie into authInfo (AuthenticateResult)
 
             //authInfo (AuthenticateResult) contains the Principal(user info) and Ticket info (cookie and token info)
             authInfo.Properties.UpdateTokenValue("access_token", newAccessToken);   //update info
