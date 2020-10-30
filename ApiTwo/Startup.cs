@@ -14,7 +14,7 @@ namespace ApiTwo
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication("Bearer")
+            services.AddAuthentication("Bearer")            //these are just copied from ApiOne, and not really used in this ep9 (will be used in later episodes)
                 .AddJwtBearer("Bearer", config => {
                     config.Authority = "https://localhost:44305/";
 

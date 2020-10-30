@@ -24,19 +24,19 @@ namespace IdentityServer
 
         public static IEnumerable<ApiResource> GetApis() =>
             new List<ApiResource> {
-                new ApiResource("ApiOne"),
+                new ApiResource("ApiOne"),      //this is the API that is availble to be accessed via the token provided by this identity server (ex: Graph API on Azure App Registration)
                 //new ApiResource("ApiTwo", new string[] { "rc.api.garndma" }),
             };
 
         public static IEnumerable<Client> GetClients() =>
             new List<Client> {
                 new Client {
-                    ClientId = "client_id",
+                    ClientId = "client_id",         //this is just like the app registration (ex: AM Tool) 
                     ClientSecrets = { new Secret("client_secret".ToSha256()) },
 
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,   //from Azure --> clientCredential = application, Code = delegate
 
-                    AllowedScopes = { "ApiOne" }
+                    AllowedScopes = { "ApiOne" }    //ex: AM Tool is registered to be able to call the Graph API
                 },
                 //new Client {
                 //    ClientId = "client_id_mvc",

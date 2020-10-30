@@ -20,17 +20,20 @@ namespace ApiTwo.Controllers
             //retrieve access token
             var serverClient = _httpClientFactory.CreateClient();
 
-            var discoveryDocument = await serverClient.GetDiscoveryDocumentAsync("https://localhost:44305/");
+            //below line calls https://localhost:44305/.well-known/openid-configuration to get the open-id server information (such as token end-point)
+            //don't need to call this if we know the token end-point
+            var discoveryDocument = await serverClient.GetDiscoveryDocumentAsync("https://localhost:44305/"); 
 
+            //below call will get the token from identityi server using Client Credential
             var tokenResponse = await serverClient.RequestClientCredentialsTokenAsync(
                 new ClientCredentialsTokenRequest
                 {
                     Address = discoveryDocument.TokenEndpoint,
 
-                    ClientId = "client_id",
+                    ClientId = "client_id",             //this client is registered (already added) to the Identity Server. ex: this is AM Tool
                     ClientSecret = "client_secret",
 
-                    Scope = "ApiOne",
+                    Scope = "ApiOne",                   //want to call ApiOne (ex: Graph API)
                 });
 
             //retrieve secret data

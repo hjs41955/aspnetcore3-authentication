@@ -10,23 +10,23 @@ namespace ApiOne
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            IdentityModelEventSource.ShowPII = true;
+            IdentityModelEventSource.ShowPII = true;        //this will show the actual error if there is any when calling the Identity Server
 
-            services.AddAuthentication("Bearer")
+            services.AddAuthentication("Bearer")        //authentication is done using Open-ID token using the identity server
                 .AddJwtBearer("Bearer", config =>
                 {
-                    config.Authority = "https://localhost:44305";
+                    config.Authority = "https://localhost:44305";   //identity server address
 
-                    config.Audience = "ApiOne";
+                    config.Audience = "ApiOne";         //the token is for 'ApiOne' API
 
                     config.RequireHttpsMetadata = false;
                 });
 
-            services.AddCors(confg =>
-                confg.AddPolicy("AllowAll",
-                    p => p.AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()));
+            //services.AddCors(confg =>
+            //    confg.AddPolicy("AllowAll",
+            //        p => p.AllowAnyOrigin()
+            //            .AllowAnyMethod()
+            //            .AllowAnyHeader()));
 
             services.AddControllers();
         }
@@ -38,7 +38,7 @@ namespace ApiOne
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors("AllowAll");
+            //app.UseCors("AllowAll");
 
             app.UseRouting();
 
