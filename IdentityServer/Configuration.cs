@@ -10,8 +10,8 @@ namespace IdentityServer
         public static IEnumerable<IdentityResource> GetIdentityResources() =>
             new List<IdentityResource>
             {
-                new IdentityResources.OpenId(),
-                new IdentityResources.Profile(),
+                new IdentityResources.OpenId(),     //server can return OpenID token
+                new IdentityResources.Profile(),    //server can provide user info (profile) via userinfo end point (Access Token adds this scope)
                 //new IdentityResource
                 //{
                 //    Name = "rc.scope",
