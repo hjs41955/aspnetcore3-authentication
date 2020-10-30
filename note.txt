@@ -1,0 +1,18 @@
+ep9 - 
+  used proj (IdentityServer, ApiOne, ApiTwo)
+  in this episode, IdentityServer is used for OAuth & OIDC. ApiOne is created as an API, and ApiTwo is created to act
+  as a client API calling ApiOne using the token created using ClientCredential. ApiTwo is registered in IdentityServer as
+  a Client that has access to scope ApiOne. In ApiTwo/Home/Index, it first creates
+  httpClient and calls the IdentityServer to get the token using Client Credential flow
+  then it calls the ApiOne/secret [Authorize] with this token added to the header
+  For ApiOne, in the ConfigureServices, it tells, it is authenticating from the IdentityServer using Bearer token (oidc)
+  therefore, any [Authorize] method in ApiOne must have a token dealt out from IdentityServer with scope (ApiOne)
+ep10 -
+  used proj (IdentityServer, MvcClient)
+  in this episode, it just prepares and create MvcClient to use authorization-code flow for openID connect for ep11
+ep11 - 
+  used proj (IdentitiyServer, MvcClient)
+  in this episode, log-in and register page is created. So MVC Client page home/secret [Authorize] is first accessed, 
+  it will be automatically directed to IdentityServer's login page (since the authorization-code flow is used)
+  If the user is successfully registered or logged-in, it user is authenticated and will be re-directed to 
+  mvcClient/home/secret page
