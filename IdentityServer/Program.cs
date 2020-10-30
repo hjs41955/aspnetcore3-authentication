@@ -14,6 +14,10 @@ namespace IdentityServer
     {
         public static void Main(string[] args)
         {
+            CreateHostBuilder(args).Build().Run();
+        }
+        public static void Main2(string[] args)
+        {
             var host = CreateHostBuilder(args).Build();
 
             using (var scope = host.Services.CreateScope())

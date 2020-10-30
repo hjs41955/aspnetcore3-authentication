@@ -7,25 +7,25 @@ namespace IdentityServer
 {
     public static class Configuration
     {
-        public static IEnumerable<IdentityResource> GetIdentityResources() =>
-            new List<IdentityResource>
-            {
-                new IdentityResources.OpenId(),
-                //new IdentityResources.Profile(),
-                new IdentityResource
-                {
-                    Name = "rc.scope",
-                    UserClaims =
-                    {
-                        "rc.garndma"
-                    }
-                }
-            };
+        //public static IEnumerable<IdentityResource> GetIdentityResources() =>
+        //    new List<IdentityResource>
+        //    {
+        //        new IdentityResources.OpenId(),
+        //        //new IdentityResources.Profile(),
+        //        new IdentityResource
+        //        {
+        //            Name = "rc.scope",
+        //            UserClaims =
+        //            {
+        //                "rc.garndma"
+        //            }
+        //        }
+        //    };
 
         public static IEnumerable<ApiResource> GetApis() =>
             new List<ApiResource> {
                 new ApiResource("ApiOne"),
-                new ApiResource("ApiTwo", new string[] { "rc.api.garndma" }),
+                //new ApiResource("ApiTwo", new string[] { "rc.api.garndma" }),
             };
 
         public static IEnumerable<Client> GetClients() =>
@@ -38,126 +38,126 @@ namespace IdentityServer
 
                     AllowedScopes = { "ApiOne" }
                 },
-                new Client {
-                    ClientId = "client_id_mvc",
-                    ClientSecrets = { new Secret("client_secret_mvc".ToSha256()) },
+                //new Client {
+                //    ClientId = "client_id_mvc",
+                //    ClientSecrets = { new Secret("client_secret_mvc".ToSha256()) },
 
-                    AllowedGrantTypes = GrantTypes.Code,
-                    RequirePkce = true,
+                //    AllowedGrantTypes = GrantTypes.Code,
+                //    RequirePkce = true,
 
-                    RedirectUris = { "https://localhost:44322/signin-oidc" },
-                    PostLogoutRedirectUris = { "https://localhost:44322/Home/Index" },
+                //    RedirectUris = { "https://localhost:44322/signin-oidc" },
+                //    PostLogoutRedirectUris = { "https://localhost:44322/Home/Index" },
 
-                    AllowedScopes = {
-                        "ApiOne",
-                        "ApiTwo",
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        //IdentityServerConstants.StandardScopes.Profile,
-                        "rc.scope",
-                    },
+                //    AllowedScopes = {
+                //        "ApiOne",
+                //        "ApiTwo",
+                //        IdentityServerConstants.StandardScopes.OpenId,
+                //        //IdentityServerConstants.StandardScopes.Profile,
+                //        "rc.scope",
+                //    },
 
-                    // puts all the claims in the id token
-                    //AlwaysIncludeUserClaimsInIdToken = true,
-                    AllowOfflineAccess = true,
-                    RequireConsent = false,
-                },
-                new Client {
-                    ClientId = "client_id_js",
+                //    // puts all the claims in the id token
+                //    //AlwaysIncludeUserClaimsInIdToken = true,
+                //    AllowOfflineAccess = true,
+                //    RequireConsent = false,
+                //},
+                //new Client {
+                //    ClientId = "client_id_js",
 
-                    AllowedGrantTypes = GrantTypes.Code,
-                    RequirePkce = true,
-                    RequireClientSecret = false,
+                //    AllowedGrantTypes = GrantTypes.Code,
+                //    RequirePkce = true,
+                //    RequireClientSecret = false,
 
-                    RedirectUris = { "https://localhost:44345/home/signin" },
-                    PostLogoutRedirectUris = { "https://localhost:44345/Home/Index" },
-                    AllowedCorsOrigins = { "https://localhost:44345" },
+                //    RedirectUris = { "https://localhost:44345/home/signin" },
+                //    PostLogoutRedirectUris = { "https://localhost:44345/Home/Index" },
+                //    AllowedCorsOrigins = { "https://localhost:44345" },
 
-                    AllowedScopes = {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        "ApiOne",
-                        "ApiTwo",
-                        "rc.scope",
-                    },
+                //    AllowedScopes = {
+                //        IdentityServerConstants.StandardScopes.OpenId,
+                //        "ApiOne",
+                //        "ApiTwo",
+                //        "rc.scope",
+                //    },
 
-                    AccessTokenLifetime = 1,
+                //    AccessTokenLifetime = 1,
 
-                    AllowAccessTokensViaBrowser = true,
-                    RequireConsent = false,
-                },
+                //    AllowAccessTokensViaBrowser = true,
+                //    RequireConsent = false,
+                //},
 
-                new Client {
-                    ClientId = "angular",
+                //new Client {
+                //    ClientId = "angular",
 
-                    AllowedGrantTypes = GrantTypes.Code,
-                    RequirePkce = true,
-                    RequireClientSecret = false,
+                //    AllowedGrantTypes = GrantTypes.Code,
+                //    RequirePkce = true,
+                //    RequireClientSecret = false,
 
-                    RedirectUris = { "http://localhost:4200" },
-                    PostLogoutRedirectUris = { "http://localhost:4200" },
-                    AllowedCorsOrigins = { "http://localhost:4200" },
+                //    RedirectUris = { "http://localhost:4200" },
+                //    PostLogoutRedirectUris = { "http://localhost:4200" },
+                //    AllowedCorsOrigins = { "http://localhost:4200" },
 
-                    AllowedScopes = {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        "ApiOne",
-                    },
+                //    AllowedScopes = {
+                //        IdentityServerConstants.StandardScopes.OpenId,
+                //        "ApiOne",
+                //    },
 
-                    AllowAccessTokensViaBrowser = true,
-                    RequireConsent = false,
-                },
+                //    AllowAccessTokensViaBrowser = true,
+                //    RequireConsent = false,
+                //},
 
-                new Client {
-                    ClientId = "wpf",
+                //new Client {
+                //    ClientId = "wpf",
 
-                    AllowedGrantTypes = GrantTypes.Code,
-                    RequirePkce = true,
-                    RequireClientSecret = false,
+                //    AllowedGrantTypes = GrantTypes.Code,
+                //    RequirePkce = true,
+                //    RequireClientSecret = false,
 
-                    RedirectUris = { "http://localhost/sample-wpf-app" },
-                    AllowedCorsOrigins = { "http://localhost" },
+                //    RedirectUris = { "http://localhost/sample-wpf-app" },
+                //    AllowedCorsOrigins = { "http://localhost" },
 
-                    AllowedScopes = {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        "ApiOne",
-                    },
+                //    AllowedScopes = {
+                //        IdentityServerConstants.StandardScopes.OpenId,
+                //        "ApiOne",
+                //    },
 
-                    AllowAccessTokensViaBrowser = true,
-                    RequireConsent = false,
-                },
-                new Client {
-                    ClientId = "xamarin",
+                //    AllowAccessTokensViaBrowser = true,
+                //    RequireConsent = false,
+                //},
+                //new Client {
+                //    ClientId = "xamarin",
 
-                    AllowedGrantTypes = GrantTypes.Code,
-                    RequirePkce = true,
-                    RequireClientSecret = false,
+                //    AllowedGrantTypes = GrantTypes.Code,
+                //    RequirePkce = true,
+                //    RequireClientSecret = false,
 
-                    RedirectUris = { "xamarinformsclients://callback" },
+                //    RedirectUris = { "xamarinformsclients://callback" },
 
-                    AllowedScopes = {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        "ApiOne",
-                    },
+                //    AllowedScopes = {
+                //        IdentityServerConstants.StandardScopes.OpenId,
+                //        "ApiOne",
+                //    },
 
-                    AllowAccessTokensViaBrowser = true,
-                    RequireConsent = false,
-                },
-		new Client {
-                    ClientId = "flutter",
+                //    AllowAccessTokensViaBrowser = true,
+                //    RequireConsent = false,
+                //},
+		//new Client {
+  //                  ClientId = "flutter",
 
-                    AllowedGrantTypes = GrantTypes.Code,
-                    RequirePkce = true,
-                    RequireClientSecret = false,
+  //                  AllowedGrantTypes = GrantTypes.Code,
+  //                  RequirePkce = true,
+  //                  RequireClientSecret = false,
 
-                    RedirectUris = { "http://localhost:4000/" },
-                    AllowedCorsOrigins = { "http://localhost:4000" },
+  //                  RedirectUris = { "http://localhost:4000/" },
+  //                  AllowedCorsOrigins = { "http://localhost:4000" },
 
-                    AllowedScopes = {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        "ApiOne",
-                    },
+  //                  AllowedScopes = {
+  //                      IdentityServerConstants.StandardScopes.OpenId,
+  //                      "ApiOne",
+  //                  },
 
-                    AllowAccessTokensViaBrowser = true,
-                    RequireConsent = false,
-                },
+  //                  AllowAccessTokensViaBrowser = true,
+  //                  RequireConsent = false,
+  //              },
 
             };
     }
