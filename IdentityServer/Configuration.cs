@@ -7,24 +7,25 @@ namespace IdentityServer
 {
     public static class Configuration
     {
-        //public static IEnumerable<IdentityResource> GetIdentityResources() =>
-        //    new List<IdentityResource>
-        //    {
-        //        new IdentityResources.OpenId(),
-        //        //new IdentityResources.Profile(),
-        //        new IdentityResource
-        //        {
-        //            Name = "rc.scope",
-        //            UserClaims =
-        //            {
-        //                "rc.garndma"
-        //            }
-        //        }
-        //    };
+        public static IEnumerable<IdentityResource> GetIdentityResources() =>
+            new List<IdentityResource>
+            {
+                new IdentityResources.OpenId(),
+                new IdentityResources.Profile(),
+                //new IdentityResource
+                //{
+                //    Name = "rc.scope",
+                //    UserClaims =
+                //    {
+                //        "rc.garndma"
+                //    }
+                //}
+            };
 
         public static IEnumerable<ApiResource> GetApis() =>
             new List<ApiResource> {
                 new ApiResource("ApiOne"),      //this is the API that is availble to be accessed via the token provided by this identity server (ex: Graph API on Azure App Registration)
+                new ApiResource("ApiTwo"),
                 //new ApiResource("ApiTwo", new string[] { "rc.api.garndma" }),
             };
 
@@ -38,29 +39,30 @@ namespace IdentityServer
 
                     AllowedScopes = { "ApiOne" }    //ex: AM Tool is registered to be able to call the Graph API
                 },
-                //new Client {
-                //    ClientId = "client_id_mvc",
-                //    ClientSecrets = { new Secret("client_secret_mvc".ToSha256()) },
+                new Client {
+                    ClientId = "client_id_mvc",
+                    ClientSecrets = { new Secret("client_secret_mvc".ToSha256()) },
 
-                //    AllowedGrantTypes = GrantTypes.Code,
-                //    RequirePkce = true,
+                    AllowedGrantTypes = GrantTypes.Code,
+                    //RequirePkce = true,
 
-                //    RedirectUris = { "https://localhost:44322/signin-oidc" },
-                //    PostLogoutRedirectUris = { "https://localhost:44322/Home/Index" },
+                    RedirectUris = { "https://localhost:44322/signin-oidc" },       //unlike ClientCredential type, auth code flow requires redirect URI
+                    //PostLogoutRedirectUris = { "https://localhost:44322/Home/Index" },
 
-                //    AllowedScopes = {
-                //        "ApiOne",
-                //        "ApiTwo",
-                //        IdentityServerConstants.StandardScopes.OpenId,
-                //        //IdentityServerConstants.StandardScopes.Profile,
-                //        "rc.scope",
-                //    },
+                    AllowedScopes = {
+                        "ApiOne",
+                        "ApiTwo",
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        //"rc.scope",
+                    },
 
-                //    // puts all the claims in the id token
-                //    //AlwaysIncludeUserClaimsInIdToken = true,
-                //    AllowOfflineAccess = true,
-                //    RequireConsent = false,
-                //},
+                    // puts all the claims in the id token
+                    //AlwaysIncludeUserClaimsInIdToken = true,
+                    AllowOfflineAccess = true,
+                    RequireConsent = false,
+                },
+
                 //new Client {
                 //    ClientId = "client_id_js",
 

@@ -69,7 +69,7 @@ namespace IdentityServer
                 //})
                 //.AddSigningCredential(certificate);
                 .AddInMemoryApiResources(Configuration.GetApis())
-                //.AddInMemoryIdentityResources(Configuration.GetIdentityResources())
+                .AddInMemoryIdentityResources(Configuration.GetIdentityResources())     //this line added for ep10
                 .AddInMemoryClients(Configuration.GetClients())
                 .AddDeveloperSigningCredential();
 

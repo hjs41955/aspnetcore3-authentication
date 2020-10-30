@@ -16,8 +16,8 @@ namespace MvcClient
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAuthentication(config => {
-                config.DefaultScheme = "Cookie";
-                config.DefaultChallengeScheme = "oidc";
+                config.DefaultScheme = "Cookie";                //store the authentiation to cookie
+                config.DefaultChallengeScheme = "oidc";         //if challenged (cookie is missing), get it from identity server using auth code flow for oidc
             })
                 .AddCookie("Cookie")
                 .AddOpenIdConnect("oidc", config => {
@@ -26,24 +26,24 @@ namespace MvcClient
                     config.ClientSecret = "client_secret_mvc";
                     config.SaveTokens = true;
                     config.ResponseType = "code";
-                    config.SignedOutCallbackPath = "/Home/Index";
+                    //config.SignedOutCallbackPath = "/Home/Index";
 
-                    // configure cookie claim mapping
-                    config.ClaimActions.DeleteClaim("amr");
-                    config.ClaimActions.DeleteClaim("s_hash");
-                    config.ClaimActions.MapUniqueJsonKey("RawCoding.Grandma", "rc.garndma");
+                    //// configure cookie claim mapping
+                    //config.ClaimActions.DeleteClaim("amr");
+                    //config.ClaimActions.DeleteClaim("s_hash");
+                    //config.ClaimActions.MapUniqueJsonKey("RawCoding.Grandma", "rc.garndma");
 
-                    // two trips to load claims in to the cookie
-                    // but the id token is smaller !
-                    config.GetClaimsFromUserInfoEndpoint = true;
+                    //// two trips to load claims in to the cookie
+                    //// but the id token is smaller !
+                    //config.GetClaimsFromUserInfoEndpoint = true;
 
-                    // configure scope
-                    config.Scope.Clear();
-                    config.Scope.Add("openid");
-                    config.Scope.Add("rc.scope");
-                    config.Scope.Add("ApiOne");
-                    config.Scope.Add("ApiTwo");
-                    config.Scope.Add("offline_access");
+                    //// configure scope
+                    //config.Scope.Clear();
+                    //config.Scope.Add("openid");
+                    //config.Scope.Add("rc.scope");
+                    //config.Scope.Add("ApiOne");
+                    //config.Scope.Add("ApiTwo");
+                    //config.Scope.Add("offline_access");
 
                 });
 
