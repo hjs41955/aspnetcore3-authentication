@@ -52,7 +52,7 @@ namespace IdentityServer
                     AllowedScopes = {
                         "ApiOne",
                         "ApiTwo",
-                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.OpenId,      //unlike OAuth, this is pure OpenID and requires this scope
                         IdentityServerConstants.StandardScopes.Profile,
                         //"rc.scope",
                     },
