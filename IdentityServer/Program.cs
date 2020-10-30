@@ -14,10 +14,6 @@ namespace IdentityServer
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
-        }
-        public static void Main2(string[] args)
-        {
             var host = CreateHostBuilder(args).Build();
 
             using (var scope = host.Services.CreateScope())
@@ -26,12 +22,12 @@ namespace IdentityServer
                     .GetRequiredService<UserManager<IdentityUser>>();
 
                 var user = new IdentityUser("bob");
-                userManager.CreateAsync(user, "password").GetAwaiter().GetResult();
-                userManager.AddClaimAsync(user, new Claim("rc.garndma", "big.cookie"))
-                    .GetAwaiter().GetResult();
-                userManager.AddClaimAsync(user, 
-                    new Claim("rc.api.garndma", "big.api.cookie"))
-                    .GetAwaiter().GetResult();
+                userManager.CreateAsync(user, "password").GetAwaiter().GetResult();         //added in ep11. create a dummy user and insert to inmemory db for use
+                //userManager.AddClaimAsync(user, new Claim("rc.garndma", "big.cookie"))
+                //    .GetAwaiter().GetResult();
+                //userManager.AddClaimAsync(user, 
+                //    new Claim("rc.api.garndma", "big.api.cookie"))
+                //    .GetAwaiter().GetResult();
 
                 //scope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>()
                 //    .Database.Migrate();

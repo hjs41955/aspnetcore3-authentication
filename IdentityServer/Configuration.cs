@@ -60,7 +60,7 @@ namespace IdentityServer
                     // puts all the claims in the id token
                     //AlwaysIncludeUserClaimsInIdToken = true,
                     AllowOfflineAccess = true,
-                    RequireConsent = false,
+                    RequireConsent = false,         //this will make the consent screen not appear (consent displayed on Ideneity Server after login and before granting code)
                 },
 
                 //new Client {

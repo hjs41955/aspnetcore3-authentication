@@ -26,29 +26,29 @@ namespace IdentityServer
         {
             //var connectionString = _config.GetConnectionString("DefaultConnection");
 
-            //services.AddDbContext<AppDbContext>(config =>
-            //{
-            //    config.UseSqlServer(connectionString);
-            //    //config.UseInMemoryDatabase("Memory");
-            //});
+            services.AddDbContext<AppDbContext>(config =>       //added for ep11. from this line to line #51 is same as in basic project
+            {
+                //config.UseSqlServer(connectionString);
+                config.UseInMemoryDatabase("Memory");
+            });
 
-            //// AddIdentity registers the services
-            //services.AddIdentity<IdentityUser, IdentityRole>(config =>
-            //{
-            //    config.Password.RequiredLength = 4;
-            //    config.Password.RequireDigit = false;
-            //    config.Password.RequireNonAlphanumeric = false;
-            //    config.Password.RequireUppercase = false;
-            //})
-            //    .AddEntityFrameworkStores<AppDbContext>()
-            //    .AddDefaultTokenProviders();
+            // AddIdentity registers the services
+            services.AddIdentity<IdentityUser, IdentityRole>(config =>      //password requirement for sign-up
+            {
+                config.Password.RequiredLength = 4;
+                config.Password.RequireDigit = false;
+                config.Password.RequireNonAlphanumeric = false;
+                config.Password.RequireUppercase = false;
+            })
+                .AddEntityFrameworkStores<AppDbContext>()                   //store user login info into in-memory DB
+                .AddDefaultTokenProviders();
 
-            //services.ConfigureApplicationCookie(config =>
-            //{
-            //    config.Cookie.Name = "IdentityServer.Cookie";
-            //    config.LoginPath = "/Auth/Login";
-            //    config.LogoutPath = "/Auth/Logout";
-            //});
+            services.ConfigureApplicationCookie(config =>
+            {
+                config.Cookie.Name = "IdentityServer.Cookie";               //name of the cookie
+                config.LoginPath = "/Auth/Login";                           //if cookie isn't there or expired, use this end-point to log-in
+                config.LogoutPath = "/Auth/Logout";
+            });
 
             //var assembly = typeof(Startup).Assembly.GetName().Name;
 
@@ -56,7 +56,7 @@ namespace IdentityServer
             //var certificate = new X509Certificate2(filePath, "password");
 
             services.AddIdentityServer()
-                //.AddAspNetIdentity<IdentityUser>()
+                .AddAspNetIdentity<IdentityUser>()                  //added in ep11. adding this will allow IdentityServer to have access to above lines #36-44
                 //.AddConfigurationStore(options =>
                 //{
                 //    options.ConfigureDbContext = b => b.UseSqlServer(connectionString,
