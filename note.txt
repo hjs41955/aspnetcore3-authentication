@@ -17,7 +17,7 @@ ep11 -
   If the user is successfully registered or logged-in, it user is authenticated and will be re-directed to 
   mvcClient/home/secret page
 ep12 - 
-  used proj ()
+  used proj (IdentityServer, ApiOne, MvcClient)
   first, it describes the cookies created. 
   AspNetCore.Cookie - this is a cookie on the MvcClient client's side
     created and split to 1 and 2 because it's too big. it holds id token and access token. removing this
@@ -34,3 +34,5 @@ ep12 -
   also, it shows how to add/remove certain claims in the httpContext. 
   also, it shows how to add/remove claims from the IDToken and instead show them only in HttpContext.claims (requires 2 trips)
   also, it shows how to add/remove scopes in startup.cs for mvcClient
+  also, it shows how to call ApiOne using the access token from MvcClient
+  also, it shows how to add the claims to either ID Token or Access token
