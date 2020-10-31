@@ -16,3 +16,21 @@ ep11 -
   it will be automatically directed to IdentityServer's login page (since the authorization-code flow is used)
   If the user is successfully registered or logged-in, it user is authenticated and will be re-directed to 
   mvcClient/home/secret page
+ep12 - 
+  used proj ()
+  first, it describes the cookies created. 
+  AspNetCore.Cookie - this is a cookie on the MvcClient client's side
+    created and split to 1 and 2 because it's too big. it holds id token and access token. removing this
+    cookie and refresh to home/seret won't force you to re-login since below cookie still exist for Identity Server.
+    if you refresh /home/secret, it will still travel to identityServer/connect/authorize page and come back wihtout 
+    needng user to enter credential
+  IdentityServer.Cookie - holds any authentiated user info for current session stored on Identity Server side. 
+    if this cookie is deleted, it will ask you to re-login only if you are missing above cookie also.
+    otherwise, the current session info for the MvcClient is stored in the cookie, so it won't even redirect you to
+    IdentityServer/connect/authorize page
+  Idsrv.session - this cookie tells which identityi server current session is associated with. In this case the session
+    is connected to the IdentityServer, but it can be google or facebook
+  in this episode, custom claims are added and shows what needs to be done to have custom claims added to id-token
+  also, it shows how to add/remove certain claims in the httpContext. 
+  also, it shows how to add/remove claims from the IDToken and instead show them only in HttpContext.claims (requires 2 trips)
+  also, it shows how to add/remove scopes in startup.cs for mvcClient
