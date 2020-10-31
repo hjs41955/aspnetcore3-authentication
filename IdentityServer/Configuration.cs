@@ -12,21 +12,21 @@ namespace IdentityServer
             {
                 new IdentityResources.OpenId(),     //server can return OpenID token
                 new IdentityResources.Profile(),    //server can provide user info (profile) via userinfo end point (Access Token adds this scope)
-                //new IdentityResource
-                //{
-                //    Name = "rc.scope",
-                //    UserClaims =
-                //    {
-                //        "rc.garndma"
-                //    }
-                //}
+                new IdentityResource                //added in ep12. this needs to be added in order to show them in the id-token and let IdentityServer know about the claims
+                {
+                    Name = "rc.scope",
+                    UserClaims =
+                    {
+                        "rc.garndma"
+                    }
+                }
             };
 
         public static IEnumerable<ApiResource> GetApis() =>
             new List<ApiResource> {
                 new ApiResource("ApiOne"),      //this is the API that is availble to be accessed via the token provided by this identity server (ex: Graph API on Azure App Registration)
-                new ApiResource("ApiTwo"),
-                //new ApiResource("ApiTwo", new string[] { "rc.api.garndma" }),
+                //new ApiResource("ApiTwo"),
+                new ApiResource("ApiTwo", new string[] { "rc.api.garndma" }),   //added in ep12. this will add the claim in access token
             };
 
         public static IEnumerable<Client> GetClients() =>
@@ -54,11 +54,11 @@ namespace IdentityServer
                         "ApiTwo",
                         IdentityServerConstants.StandardScopes.OpenId,      //unlike OAuth, this is pure OpenID and requires this scope
                         IdentityServerConstants.StandardScopes.Profile,
-                        //"rc.scope",
+                        "rc.scope",                                         //added in ep12 to register this custom scope accessible by the mvcClient
                     },
 
                     // puts all the claims in the id token
-                    //AlwaysIncludeUserClaimsInIdToken = true,
+                    AlwaysIncludeUserClaimsInIdToken = true,        //added in ep12. this would add the user claims to the ID Token (name and preferred user name will be added)
                     AllowOfflineAccess = true,
                     RequireConsent = false,         //this will make the consent screen not appear (consent displayed on Ideneity Server after login and before granting code)
                 },

@@ -26,15 +26,15 @@ namespace MvcClient.Controllers
         [Authorize]
         public async Task<IActionResult> Secret()
         {
-            //var accessToken = await HttpContext.GetTokenAsync("access_token");
-            //var idToken = await HttpContext.GetTokenAsync("id_token");
-            //var refreshToken = await HttpContext.GetTokenAsync("refresh_token");
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            var idToken = await HttpContext.GetTokenAsync("id_token");
+            var refreshToken = await HttpContext.GetTokenAsync("refresh_token");
 
-            //var claims = User.Claims.ToList();
-            //var _accessToken = new JwtSecurityTokenHandler().ReadJwtToken(accessToken);
-            //var _idToken = new JwtSecurityTokenHandler().ReadJwtToken(idToken);
+            var claims = User.Claims.ToList();
+            var _accessToken = new JwtSecurityTokenHandler().ReadJwtToken(accessToken);
+            var _idToken = new JwtSecurityTokenHandler().ReadJwtToken(idToken);
 
-            //var result = await GetSecret(accessToken);
+            var result = await GetSecret(accessToken);      //added in ep12
 
             //await RefreshAccessToken();
 
@@ -46,18 +46,18 @@ namespace MvcClient.Controllers
         //        return SignOut("Cookie", "oidc");
         //    }
 
-        //    public async Task<string> GetSecret(string accessToken)
-        //    {
-        //        var apiClient = _httpClientFactory.CreateClient();
+        public async Task<string> GetSecret(string accessToken)
+        {
+            var apiClient = _httpClientFactory.CreateClient();
 
-        //        apiClient.SetBearerToken(accessToken);
+            apiClient.SetBearerToken(accessToken);
 
-        //        var response = await apiClient.GetAsync("https://localhost:44337/secret");
+            var response = await apiClient.GetAsync("https://localhost:44337/secret");  //calling ApiOne secret[Autnorize] method with the access token
 
-        //        var content = await response.Content.ReadAsStringAsync();
+            var content = await response.Content.ReadAsStringAsync();
 
-        //        return content;
-        //    }
+            return content;
+        }
 
         //    private async Task RefreshAccessToken()
         //    {

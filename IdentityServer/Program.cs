@@ -23,11 +23,11 @@ namespace IdentityServer
 
                 var user = new IdentityUser("bob");
                 userManager.CreateAsync(user, "password").GetAwaiter().GetResult();         //added in ep11. create a dummy user and insert to inmemory db for use
-                //userManager.AddClaimAsync(user, new Claim("rc.garndma", "big.cookie"))
-                //    .GetAwaiter().GetResult();
-                //userManager.AddClaimAsync(user, 
-                //    new Claim("rc.api.garndma", "big.api.cookie"))
-                //    .GetAwaiter().GetResult();
+                userManager.AddClaimAsync(user, new Claim("rc.garndma", "big.cookie"))      //added in ep12. adding our custom claims to show up on the id token
+                    .GetAwaiter().GetResult();
+                userManager.AddClaimAsync(user,                                             //added in ep12. adding our custom claims to show up on the access token
+                    new Claim("rc.api.garndma", "big.api.cookie"))
+                    .GetAwaiter().GetResult();
 
                 //scope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>()
                 //    .Database.Migrate();
