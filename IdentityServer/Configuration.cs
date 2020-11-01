@@ -59,7 +59,7 @@ namespace IdentityServer
 
                     // puts all the claims in the id token
                     AlwaysIncludeUserClaimsInIdToken = true,        //added in ep12. this would add the user claims to the ID Token (name and preferred user name will be added)
-                    AllowOfflineAccess = true,
+                    AllowOfflineAccess = true,                      //added in ep13 to allow refresh token
                     RequireConsent = false,         //this will make the consent screen not appear (consent displayed on Ideneity Server after login and before granting code)
                 },
 

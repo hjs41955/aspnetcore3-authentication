@@ -44,7 +44,7 @@ namespace MvcClient
                     config.Scope.Add("rc.scope");           //added in ep12. this client is now requesting access to this scope which already should be registerd in configuration
                     config.Scope.Add("ApiOne");             //added in ep12
                     config.Scope.Add("ApiTwo");
-                    //config.Scope.Add("offline_access");
+                    config.Scope.Add("offline_access");     //added in ep13
 
                 });
 
