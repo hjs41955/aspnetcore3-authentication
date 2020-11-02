@@ -40,5 +40,6 @@ ep13 -
   used proj (IdentityServer, MvcClient, ApiOne)
   In this episode, he implements the refresh-token using IdentityServer4
 ep14 -
-  used proj ()
+  used proj (IdentityServer, JavascriptClient)
+  in this episode, he implements the Implicit call to get the ID-Token and Access token from IdentityServer
   
