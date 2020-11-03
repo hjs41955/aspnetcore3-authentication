@@ -59,4 +59,12 @@ ep15 -
   with the ID and Access tokens, 5. Signin.cshtml simply displays the result on the console log and redirects to the index
   6. also the main.js adds the Bearer token to the header Authorization using Axios, 
   7. user clicks on the 'call apione' button, 8. use Axio (as httpContext) to call the API (Url) and will get it successfully 
-  
+ep16 -
+  used proj ()
+  first, it enabled LocalStorage
+  LocalStorage - shared among all tabs, and survives refresh, browser close, and OS reboot, (5MB storage), 
+    client-side readonly, less older browser support, no expiration, plain text and not secure
+  SessionStorage - only accessible from same tab. survives refresh, but not browser close or OS reboot (5-10MB storage)
+    client-side readonly, less older browser support
+  Cookie - both client and server side read support, 4KB size, expiry can be set per cookie, purposed for server,
+    if httpOnly flag=true, it will be secured and cannot be read by client
