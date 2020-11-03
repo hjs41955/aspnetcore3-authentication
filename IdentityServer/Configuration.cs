@@ -73,7 +73,7 @@ namespace IdentityServer
 
                     RedirectUris = { "https://localhost:44345/home/signin" },
                     //PostLogoutRedirectUris = { "https://localhost:44345/Home/Index" },
-                    //AllowedCorsOrigins = { "https://localhost:44345" },
+                    AllowedCorsOrigins = { "https://localhost:44345" },             //added in ep15 (to allow .js to call IdentityServer's end points
 
                     AllowedScopes = {
                         IdentityServerConstants.StandardScopes.OpenId,

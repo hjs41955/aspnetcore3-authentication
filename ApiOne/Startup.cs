@@ -22,11 +22,11 @@ namespace ApiOne
                     config.RequireHttpsMetadata = false;
                 });
 
-            //services.AddCors(confg =>
-            //    confg.AddPolicy("AllowAll",
-            //        p => p.AllowAnyOrigin()
-            //            .AllowAnyMethod()
-            //            .AllowAnyHeader()));
+            services.AddCors(confg =>                           //added in ep15 to allow the Javascript client to call this API
+                confg.AddPolicy("AllowAll",
+                    p => p.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()));
 
             services.AddControllers();
         }
@@ -38,7 +38,7 @@ namespace ApiOne
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseCors("AllowAll");
+            app.UseCors("AllowAll");                            //added in ep15
 
             app.UseRouting();
 
