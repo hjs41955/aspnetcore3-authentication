@@ -64,6 +64,9 @@ ep16 -
   first, it enabled LocalStorage (so user can close the browser and reopen to connect to ApiOne without authnticating
   for persistance.
   next, he shows how to add new claims
+  last, he shows how to auto-request for the token if the access token is expired, so the user won't have to re-enter
+  the password. This is done via oidc.userManager.signInSilent() and this is only called if the 401 is returned. This
+  makes the implicit-flow more usable without annoying the user to re-authenticate every hour or so.
   
   LocalStorage - shared among all tabs, and survives refresh, browser close, and OS reboot, (5MB storage), 
     client-side readonly, less older browser support, no expiration, plain text and not secure
