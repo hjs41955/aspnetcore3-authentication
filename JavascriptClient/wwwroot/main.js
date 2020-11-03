@@ -1,5 +1,5 @@
 var config = {
-    //userStore: new Oidc.WebStorageStateStore({ store: window.localStorage }),
+    userStore: new Oidc.WebStorageStateStore({ store: window.localStorage }),       //added in ep16
     authority: "https://localhost:44305/",
     client_id: "client_id_js",
     redirect_uri: "https://localhost:44345/Home/SignIn",

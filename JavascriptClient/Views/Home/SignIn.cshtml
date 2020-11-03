@@ -1,10 +1,10 @@
 ﻿<script src="https://cdnjs.cloudflare.com/ajax/libs/oidc-client/1.9.1/oidc-client.min.js"></script>
 
 <script>
-    //var userManger = new Oidc.UserManager({
-    //    userStore: new Oidc.WebStorageStateStore({ store: window.localStorage }),
-    //    response_mode: "query"
-    //});
+    var userManger = new Oidc.UserManager({                                         //added in ep16
+        userStore: new Oidc.WebStorageStateStore({ store: window.localStorage })
+        //,response_mode: "query"
+    });
     var userManager = new Oidc.UserManager();
 
     userManager.signinCallback().then(res => {      //here, in this file ,it's doing nothing more than just dislay the result on the console and re-direct to index page
