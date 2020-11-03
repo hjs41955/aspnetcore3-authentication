@@ -45,4 +45,18 @@ ep14 -
   also, it shows the flow from 1. click on sign-in, 2. re-direct to IdentityServer's login page, 3. if successfully logged-in
   it will re-direct to IdentityServer's internal sign-in and 4. redirect back to the client's redirect url with the
   tokens added to the url as # 5. Javascript will receive and parse the tokens (ID and Access) and store to browser's memory
+  -Sign-in.js - custom way to build the callback url with all params to call IdentitiyServer's login function
+  -Sign-in-callback.js - parses the string received from the IdentityServer and store ID and Access token to browsers memory
+ep15 - 
+  used proj (IdentityServer, MvcClient, ApiOne)
+  in this episode, he shows how to implement signin re-direct using oidc-client.js instead of writing custom one as ep14
+  still using the Implicit flow
+  first, ApiOne is modified to allow Cors connections from the browser in the startup.cs
+  next, in IdentityServer project, configuration.cs modified to add AllowedCorsOrigins of the addresss of the client ip addr
+  next, removed custom .js files sign-in.js and sign-in-callback.js and added main.js to use Oidc.UserManager
+  The flow is 1. User click on sign-in button, 2. .js will call the IdentityServer using the oidc.usermanager
+  3. user logs-in on IdentityServer page, 4. IdentityServer will verify and logs-in, and redirects to the re-direct page
+  with the ID and Access tokens, 5. Signin.cshtml simply displays the result on the console log and redirects to the index
+  6. also the main.js adds the Bearer token to the header Authorization using Axios, 
+  7. user clicks on the 'call apione' button, 8. use Axio (as httpContext) to call the API (Url) and will get it successfully 
   
