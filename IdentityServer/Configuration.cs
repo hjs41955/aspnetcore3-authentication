@@ -63,29 +63,30 @@ namespace IdentityServer
                     RequireConsent = false,         //this will make the consent screen not appear (consent displayed on Ideneity Server after login and before granting code)
                 },
 
-                //new Client {
-                //    ClientId = "client_id_js",
+                new Client {                            //added in ep14
+                    ClientId = "client_id_js",
 
-                //    AllowedGrantTypes = GrantTypes.Code,
-                //    RequirePkce = true,
-                //    RequireClientSecret = false,
+                    //AllowedGrantTypes = GrantTypes.Code,
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    //RequirePkce = true,
+                    //RequireClientSecret = false,
 
-                //    RedirectUris = { "https://localhost:44345/home/signin" },
-                //    PostLogoutRedirectUris = { "https://localhost:44345/Home/Index" },
-                //    AllowedCorsOrigins = { "https://localhost:44345" },
+                    RedirectUris = { "https://localhost:44345/home/signin" },
+                    //PostLogoutRedirectUris = { "https://localhost:44345/Home/Index" },
+                    //AllowedCorsOrigins = { "https://localhost:44345" },
 
-                //    AllowedScopes = {
-                //        IdentityServerConstants.StandardScopes.OpenId,
-                //        "ApiOne",
-                //        "ApiTwo",
-                //        "rc.scope",
-                //    },
+                    AllowedScopes = {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        "ApiOne",
+                        //"ApiTwo",
+                        //"rc.scope",
+                    },
 
-                //    AccessTokenLifetime = 1,
+                    //AccessTokenLifetime = 1,
 
-                //    AllowAccessTokensViaBrowser = true,
-                //    RequireConsent = false,
-                //},
+                    AllowAccessTokensViaBrowser = true,
+                    RequireConsent = false,
+                },
 
                 //new Client {
                 //    ClientId = "angular",
