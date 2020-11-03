@@ -78,11 +78,11 @@ namespace IdentityServer
                     AllowedScopes = {
                         IdentityServerConstants.StandardScopes.OpenId,
                         "ApiOne",
-                        //"ApiTwo",
-                        //"rc.scope",
+                        "ApiTwo",   //added in ep16
+                        "rc.scope", //added in ep16
                     },
 
-                    //AccessTokenLifetime = 1,
+                    AccessTokenLifetime = 1,        //added in ep16. this is for testing to make the Access Token to be invalid in 1 second to show how it automatically regenerate a token
 
                     AllowAccessTokensViaBrowser = true,
                     RequireConsent = false,
