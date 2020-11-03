@@ -42,4 +42,7 @@ ep13 -
 ep14 -
   used proj (IdentityServer, JavascriptClient)
   in this episode, he implements the Implicit call to get the ID-Token and Access token from IdentityServer
+  also, it shows the flow from 1. click on sign-in, 2. re-direct to IdentityServer's login page, 3. if successfully logged-in
+  it will re-direct to IdentityServer's internal sign-in and 4. redirect back to the client's redirect url with the
+  tokens added to the url as # 5. Javascript will receive and parse the tokens (ID and Access) and store to browser's memory
   
