@@ -8,7 +8,7 @@ var extractTokens = function (address) {
         localStorage.setItem(kvPair[0], kvPair[1]);
     }
 
-    window.location.href = '/home/index';
+    //window.location.href = '/home/index';
 }
 
 
