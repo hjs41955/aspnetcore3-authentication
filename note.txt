@@ -60,7 +60,7 @@ ep15 -
   6. also the main.js adds the Bearer token to the header Authorization using Axios, 
   7. user clicks on the 'call apione' button, 8. use Axio (as httpContext) to call the API (Url) and will get it successfully 
 ep16 -
-  used proj ()
+  used proj (IdentityServer, MvcClient, ApiOne)
   first, it enabled LocalStorage (so user can close the browser and reopen to connect to ApiOne without authnticating
   for persistance.
   next, he shows how to add new claims
@@ -74,3 +74,13 @@ ep16 -
     client-side readonly, less older browser support
   Cookie - both client and server side read support, 4KB size, expiry can be set per cookie, purposed for server,
     if httpOnly flag=true, it will be secured and cannot be read by client
+
+ep 17 -
+  used proj ()
+  this episode teaches how to convert in-memory storage to sql server storage using EF
+  before anything, he calls (dotnet tool install --global dotnet-ef) to install the EF tool
+  next, he calls (dotnet ef migrations add [name of the migration] -c [class name] -o [output path]). this command
+  will create migration files so it can be tracked in source control. This migration is simply a middle piece between
+  the database table and the model class. this needs to be updated as the model changes
+  next, he calls (dotnet ef database update -c [class name for context created by migration]). this command will
+  create the database
