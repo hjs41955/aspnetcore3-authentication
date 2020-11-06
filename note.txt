@@ -48,7 +48,7 @@ ep14 -
   -Sign-in.js - custom way to build the callback url with all params to call IdentitiyServer's login function
   -Sign-in-callback.js - parses the string received from the IdentityServer and store ID and Access token to browsers memory
 ep15 - 
-  used proj (IdentityServer, MvcClient, ApiOne)
+  used proj (IdentityServer, JavascriptClient, ApiOne)
   in this episode, he shows how to implement signin re-direct using oidc-client.js instead of writing custom one as ep14
   still using the Implicit flow
   first, ApiOne is modified to allow Cors connections from the browser in the startup.cs
@@ -60,7 +60,7 @@ ep15 -
   6. also the main.js adds the Bearer token to the header Authorization using Axios, 
   7. user clicks on the 'call apione' button, 8. use Axio (as httpContext) to call the API (Url) and will get it successfully 
 ep16 -
-  used proj (IdentityServer, MvcClient, ApiOne)
+  used proj (IdentityServer, JavascriptClient, ApiOne)
   first, it enabled LocalStorage (so user can close the browser and reopen to connect to ApiOne without authnticating
   for persistance.
   next, he shows how to add new claims
@@ -76,7 +76,7 @@ ep16 -
     if httpOnly flag=true, it will be secured and cannot be read by client
 
 ep 17 -
-  used proj ()
+  used proj (IdentityServer, MvcClient, JavascriptClient ApiOne)
   this episode teaches how to convert in-memory storage to sql server storage using EF
   before anything, he calls (dotnet tool install --global dotnet-ef) to install the EF tool
   next, he calls (dotnet ef migrations add [name of the migration] -c [class name] -o [output path]). this command
