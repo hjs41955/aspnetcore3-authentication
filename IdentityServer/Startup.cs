@@ -24,12 +24,12 @@ namespace IdentityServer
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //var connectionString = _config.GetConnectionString("DefaultConnection");
+            var connectionString = _config.GetConnectionString("DefaultConnection");    //added in ep17
 
             services.AddDbContext<AppDbContext>(config =>       //added for ep11. from this line to line #51 is same as in basic project
             {
-                //config.UseSqlServer(connectionString);
-                config.UseInMemoryDatabase("Memory");
+                config.UseSqlServer(connectionString);          //added in ep17 and commented out below
+                //config.UseInMemoryDatabase("Memory");
             });
 
             // AddIdentity registers the services
@@ -50,27 +50,27 @@ namespace IdentityServer
                 config.LogoutPath = "/Auth/Logout";
             });
 
-            //var assembly = typeof(Startup).Assembly.GetName().Name;
+            var assembly = typeof(Startup).Assembly.GetName().Name;         //added in ep17
 
             //var filePath = Path.Combine(_env.ContentRootPath, "is_cert.pfx");
             //var certificate = new X509Certificate2(filePath, "password");
 
             services.AddIdentityServer()
                 .AddAspNetIdentity<IdentityUser>()                  //added in ep11. adding this will allow IdentityServer to have access to above lines #36-44
-                //.AddConfigurationStore(options =>
-                //{
-                //    options.ConfigureDbContext = b => b.UseSqlServer(connectionString,
-                //        sql => sql.MigrationsAssembly(assembly));
-                //})
-                //.AddOperationalStore(options =>
-                //{
-                //    options.ConfigureDbContext = b => b.UseSqlServer(connectionString,
-                //        sql => sql.MigrationsAssembly(assembly));
-                //})
+                .AddConfigurationStore(options =>                   //below 10 lines are added in ep17 for SQL Server
+                {
+                    options.ConfigureDbContext = b => b.UseSqlServer(connectionString,  //used for config data such as clients, resources, and scopes
+                        sql => sql.MigrationsAssembly(assembly));
+                })
+                .AddOperationalStore(options =>
+                {
+                    options.ConfigureDbContext = b => b.UseSqlServer(connectionString,  //used for temporary operational data such as auth codes, refresh tokens
+                        sql => sql.MigrationsAssembly(assembly));
+                })
                 //.AddSigningCredential(certificate);
-                .AddInMemoryApiResources(Configuration.GetApis())
-                .AddInMemoryIdentityResources(Configuration.GetIdentityResources())     //this line added for ep10
-                .AddInMemoryClients(Configuration.GetClients())
+                //.AddInMemoryApiResources(Configuration.GetApis())                     //commented out in ep17
+                //.AddInMemoryIdentityResources(Configuration.GetIdentityResources())   //this line added for ep10, commented out in ep17
+                //.AddInMemoryClients(Configuration.GetClients())                       //commented out in ep17
                 .AddDeveloperSigningCredential();
 
             //services.AddAuthentication()
