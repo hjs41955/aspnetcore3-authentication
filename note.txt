@@ -96,3 +96,5 @@ ep 17 -
 ep 18 -
   used proj (IdentityServer, MvcClient, JavascriptClient, ApiOne)
   in thie episode, he shows how to add the log-out on both mvcClient and JsClient
+  nest, he explains how to apply certificate to the IdentityServer. using dev mode won't require it, but in production
+  environment, certificate is required, and no longer needing .AddDeveloperSigningCredential();
