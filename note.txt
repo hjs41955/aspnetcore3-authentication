@@ -7,15 +7,18 @@ ep9 -
   then it calls the ApiOne/secret [Authorize] with this token added to the header
   For ApiOne, in the ConfigureServices, it tells, it is authenticating from the IdentityServer using Bearer token (oidc)
   therefore, any [Authorize] method in ApiOne must have a token dealt out from IdentityServer with scope (ApiOne)
+
 ep10 -
   used proj (IdentityServer, MvcClient)
   in this episode, it just prepares and create MvcClient to use authorization-code flow for openID connect for ep11
+
 ep11 - 
   used proj (IdentitiyServer, MvcClient)
   in this episode, log-in and register page is created. So MVC Client page home/secret [Authorize] is first accessed, 
   it will be automatically directed to IdentityServer's login page (since the authorization-code flow is used)
   If the user is successfully registered or logged-in, it user is authenticated and will be re-directed to 
   mvcClient/home/secret page
+
 ep12 - 
   used proj (IdentityServer, ApiOne, MvcClient)
   first, it describes the cookies created. 
@@ -36,9 +39,11 @@ ep12 -
   also, it shows how to add/remove scopes in startup.cs for mvcClient
   also, it shows how to call ApiOne using the access token from MvcClient
   also, it shows how to add the claims to either ID Token or Access token
+
 ep13 - 
   used proj (IdentityServer, MvcClient, ApiOne)
   In this episode, he implements the refresh-token using IdentityServer4
+
 ep14 -
   used proj (IdentityServer, JavascriptClient)
   in this episode, he implements the Implicit call to get the ID-Token and Access token from IdentityServer
@@ -47,6 +52,7 @@ ep14 -
   tokens added to the url as # 5. Javascript will receive and parse the tokens (ID and Access) and store to browser's memory
   -Sign-in.js - custom way to build the callback url with all params to call IdentitiyServer's login function
   -Sign-in-callback.js - parses the string received from the IdentityServer and store ID and Access token to browsers memory
+
 ep15 - 
   used proj (IdentityServer, JavascriptClient, ApiOne)
   in this episode, he shows how to implement signin re-direct using oidc-client.js instead of writing custom one as ep14
@@ -59,6 +65,7 @@ ep15 -
   with the ID and Access tokens, 5. Signin.cshtml simply displays the result on the console log and redirects to the index
   6. also the main.js adds the Bearer token to the header Authorization using Axios, 
   7. user clicks on the 'call apione' button, 8. use Axio (as httpContext) to call the API (Url) and will get it successfully 
+
 ep16 -
   used proj (IdentityServer, JavascriptClient, ApiOne)
   first, it enabled LocalStorage (so user can close the browser and reopen to connect to ApiOne without authnticating
@@ -84,3 +91,5 @@ ep 17 -
   the database table and the model class. this needs to be updated as the model changes
   next, he calls (dotnet ef database update -c [class name for context created by migration]). this command will
   create the database
+  Db-Scripts.txt shows all above commands for migrations and database
+  
