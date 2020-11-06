@@ -93,3 +93,6 @@ ep 17 -
   create the database
   Db-Scripts.txt shows all above commands for migrations and database
   
+ep 18 -
+  used proj (IdentityServer, MvcClient, JavascriptClient, ApiOne)
+  in thie episode, he shows how to add the log-out on both mvcClient and JsClient
