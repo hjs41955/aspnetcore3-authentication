@@ -4,7 +4,7 @@ var config = {
     client_id: "client_id_js",
     redirect_uri: "https://localhost:44345/Home/SignIn",
     response_type: "id_token token",
-    //post_logout_redirect_uri: "https://localhost:44345/Home/Index",
+    post_logout_redirect_uri: "https://localhost:44345/Home/Index",                 //added in ep18
     //response_type: "code",
     scope: "openid rc.scope ApiOne ApiTwo"      //added in ep16
 };
@@ -15,9 +15,9 @@ var signIn = function () {
     userManager.signinRedirect();
 };
 
-//var signOut = function() {
-//    userManager.signoutRedirect();
-//};
+var signOut = function() {                      //added in ep18
+    userManager.signoutRedirect();
+};
 
 userManager.getUser().then(user => {
     console.log("user:", user);

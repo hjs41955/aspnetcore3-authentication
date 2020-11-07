@@ -8,3 +8,19 @@ dotnet ef database update -c AppDbContext
 
 dotnet ef database update -c PersistedGrantDbContext
 dotnet ef database update -c ConfigurationDbContext
+
+
+----------------------------------------------
+https://blogs.msdn.microsoft.com/kaevans/2016/08/12/using-powershell-with-certificates/
+
+--below creates a certificate
+$cert = New-SelfSignedCertificate -Subject "CN=IdentityServerExample" -CertStoreLocation cert:\CurrentUser\My -Provider "Microsoft Strong Cryptographic Provider"
+
+--below shows all current certificates
+Get-ChildItem -Path cert:\CurrentUser\My
+
+--export private key (below command will pop-up login dialog. enter 'test' 'test')
+$cred = Get-Credential
+
+--next export the cert to a .pfx file
+Export-PfxCertificate -Cert $cert -Password $cred.Password -FilePath ".\is_cert.pfx"

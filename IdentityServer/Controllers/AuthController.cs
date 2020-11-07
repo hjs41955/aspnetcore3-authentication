@@ -10,33 +10,33 @@ namespace IdentityServer.Controllers
     {
         private readonly SignInManager<IdentityUser> _signInManager;                //needed for sign in
         private readonly UserManager<IdentityUser> _userManager;                    //needed for sign up
-        //private readonly IIdentityServerInteractionService _interactionService;
+        private readonly IIdentityServerInteractionService _interactionService;     //added in ep18 (needed for log-out of IdentityServer)
 
         public AuthController(
             UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager
-            //IIdentityServerInteractionService interactionService
+            SignInManager<IdentityUser> signInManager,
+            IIdentityServerInteractionService interactionService        //added in ep18
             )
         {
             _signInManager = signInManager;
             _userManager = userManager;
-            //_interactionService = interactionService;
+            _interactionService = interactionService;                   //added in ep18
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> Logout(string logoutId)
-        //{
-        //    await _signInManager.SignOutAsync();
+        [HttpGet]
+        public async Task<IActionResult> Logout(string logoutId)        //added in ep18
+        {
+            await _signInManager.SignOutAsync();
 
-        //    var logoutRequest = await _interactionService.GetLogoutContextAsync(logoutId);
+            var logoutRequest = await _interactionService.GetLogoutContextAsync(logoutId);
 
-        //    if (string.IsNullOrEmpty(logoutRequest.PostLogoutRedirectUri))
-        //    {
-        //        return RedirectToAction("Index", "Home");
-        //    }
+            if (string.IsNullOrEmpty(logoutRequest.PostLogoutRedirectUri))
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
-        //    return Redirect(logoutRequest.PostLogoutRedirectUri);
-        //}
+            return Redirect(logoutRequest.PostLogoutRedirectUri);
+        }
 
         [HttpGet]
         public async Task<IActionResult> Login(string returnUrl)

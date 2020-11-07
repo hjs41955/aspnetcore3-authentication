@@ -47,7 +47,7 @@ namespace IdentityServer
                     //RequirePkce = true,
 
                     RedirectUris = { "https://localhost:44322/signin-oidc" },       //unlike ClientCredential type, auth code flow requires redirect URI
-                    //PostLogoutRedirectUris = { "https://localhost:44322/Home/Index" },
+                    PostLogoutRedirectUris = { "https://localhost:44322/Home/Index" },  //added in ep18
 
                     AllowedScopes = {
                         "ApiOne",
@@ -72,7 +72,7 @@ namespace IdentityServer
                     //RequireClientSecret = false,
 
                     RedirectUris = { "https://localhost:44345/home/signin" },
-                    //PostLogoutRedirectUris = { "https://localhost:44345/Home/Index" },
+                    PostLogoutRedirectUris = { "https://localhost:44345/Home/Index" },      //added in ep18
                     AllowedCorsOrigins = { "https://localhost:44345" },             //added in ep15 (to allow .js to call IdentityServer's end points
 
                     AllowedScopes = {

@@ -26,7 +26,7 @@ namespace MvcClient
                     config.ClientSecret = "client_secret_mvc";
                     config.SaveTokens = true;
                     config.ResponseType = "code";
-                    //config.SignedOutCallbackPath = "/Home/Index";
+                    config.SignedOutCallbackPath = "/Home/Index";       //added in ep18
 
                     // configure cookie claim mapping                   //added in ep12. this allows you to manipulate what to include/remove from teh claim
                     config.ClaimActions.DeleteClaim("amr");
