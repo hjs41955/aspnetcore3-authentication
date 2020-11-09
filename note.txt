@@ -98,3 +98,11 @@ ep 18 -
   in thie episode, he shows how to add the log-out on both mvcClient and JsClient
   nest, he explains how to apply certificate to the IdentityServer. using dev mode won't require it, but in production
   environment, certificate is required, and no longer needing .AddDeveloperSigningCredential();
+
+ep 19 -
+  used proj (IdentityServer, MvcClient, ApiOne)
+  in this episode, he shows how to authenticate via Facebook. First, he shows how to get the Facebook OAuth login registered.
+  Then he shows how to register the user using the Facebook OpenID, and that information is stored on the local SQL Server
+  and won't require the manual registration by the user. Once registered, you can close the MVC Client and reopen, and click
+  on the FAcebook, it will use cached info in the cookie to log you in again automatically, and so is the MvcClient.
+  You can call the ApiOne api with this login as well.
