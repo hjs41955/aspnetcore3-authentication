@@ -130,3 +130,9 @@ ep 19 -
   9. within this callback function, it first checks to see if sign-in. if success, it will return you back to the home/secret
   10. if you fail to sign-in, mean you are not registered. it will direct you to register page with username pre-populated
   11. if you click on register button, it will try to create new user (register), and add login, and sign-in and to home/secret
+  
+  one thing to remeber is, external auth (facebook or google) is only for authenticating. In this example, the MvcClient, once
+  you are authenticated, you can go into the [Authorize] end-points of MvcClient project. This MvcClient accessing ApiOne using
+  ClientCredential is separate issue (nothing todo with external auth. Accessing ApiOne is done by using client ID, client
+  secret, redirect URL, and scope that are pre-registered in configuration.cs, so the ID Token or Access Token that is used to
+  call ApiOne has no user info (such as google or facebook)
