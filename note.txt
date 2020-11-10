@@ -106,3 +106,27 @@ ep 19 -
   and won't require the manual registration by the user. Once registered, you can close the MVC Client and reopen, and click
   on the FAcebook, it will use cached info in the cookie to log you in again automatically, and so is the MvcClient.
   You can call the ApiOne api with this login as well.
+  I added Google as another external authenticator by adding a pacakge Microsoft.aspnetcore.authentication.google
+  These middlewares created by MS work as below
+  1. from MvcClient project, when I try to access the secret controller end point [Authorize], it redirects me to IdentitySvr
+  2. From IdentityServer AuthController, login endpoint is called with below redirect URI (URI created by IdentitySvr)
+    "/connect/authorize/callback?client_id=client_id_mvc
+    &redirect_uri=https%3A%2F%2Flocalhost%3A44322%2Fsignin-oidc
+    &response_type=code
+    &scope=openid%20rc.scope%20ApiOne%20ApiTwo%20offline_access
+    &code_challenge=etCFPbmxcr3qwkUtSRu789qEtCYds3a-QwGoapOEpXk
+    &code_challenge_method=S256
+    &response_mode=form_post
+    &nonce=637405791220096234.NmMyZWJmOTgtMzIzNy00NDkzLTk00YzY1LTliYjMtMWRjM2ExYTA1ODNj
+    &state=CfDJ8Kaa-wFM9w9Kno6yk1nQK9rRT3SMPGBXUUZCNqsMw
+    &x-client-SKU=ID_NETSTANDARD2_0
+    &x-client-ver=5.5.0.0"
+  3. login view will display the external login buttons on the fly
+  4. once you click on external authenticator button (either Google or Facebook), it will call EXternalLogin method
+  5. Challenge() will open Google/Facebook login page for oidc
+  6. IdentiySvr automatically attaches the signin-google or signin-facebook at the end of the redirect URL of the identitySvr
+  7. so if the Identity server is https://localhost:44305, you must register https://localhost:44305/signin-google or facebook
+  8. after sign-in successfully, the callback function ExternalLoginCallback is called 
+  9. within this callback function, it first checks to see if sign-in. if success, it will return you back to the home/secret
+  10. if you fail to sign-in, mean you are not registered. it will direct you to register page with username pre-populated
+  11. if you click on register button, it will try to create new user (register), and add login, and sign-in and to home/secret
