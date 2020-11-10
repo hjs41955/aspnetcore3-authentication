@@ -136,3 +136,5 @@ ep 19 -
   ClientCredential is separate issue (nothing todo with external auth. Accessing ApiOne is done by using client ID, client
   secret, redirect URL, and scope that are pre-registered in configuration.cs, so the ID Token or Access Token that is used to
   call ApiOne has no user info (such as google or facebook)
+  
+  once you login using facebook or google, login is stored in the database, so until it expires, you won't need to re-login
