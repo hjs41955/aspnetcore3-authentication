@@ -52,8 +52,8 @@ namespace IdentityServer
 
             var assembly = typeof(Startup).Assembly.GetName().Name;         //added in ep17
 
-            var filePath = Path.Combine(_env.ContentRootPath, "is_cert.pfx");   //added in ep18
-            var certificate = new X509Certificate2(filePath, "test");   //added in ep18
+            //var filePath = Path.Combine(_env.ContentRootPath, "is_cert.pfx");   //added in ep18, re-commented out in ep19
+            //var certificate = new X509Certificate2(filePath, "test");   //added in ep18, re-commented out in ep19
 
             services.AddIdentityServer()
                 .AddAspNetIdentity<IdentityUser>()                  //added in ep11. adding this will allow IdentityServer to have access to above lines #36-44
@@ -67,17 +67,24 @@ namespace IdentityServer
                     options.ConfigureDbContext = b => b.UseSqlServer(connectionString,  //used for temporary operational data such as auth codes, refresh tokens
                         sql => sql.MigrationsAssembly(assembly));
                 })
-                .AddSigningCredential(certificate);                                     //added in ep18
+                //.AddSigningCredential(certificate);                                   //added in ep18, re-comented out in ep19
                 //.AddInMemoryApiResources(Configuration.GetApis())                     //commented out in ep17
                 //.AddInMemoryIdentityResources(Configuration.GetIdentityResources())   //this line added for ep10, commented out in ep17
                 //.AddInMemoryClients(Configuration.GetClients())                       //commented out in ep17
-                //.AddDeveloperSigningCredential();                                     //commented out in ep18
+                .AddDeveloperSigningCredential();                                       //commented out in ep18, added back in ep19
 
-            //services.AddAuthentication()
-            //    .AddFacebook(config => {
-            //        config.AppId = "3396617443742614";
-            //        config.AppSecret = "secret";
-            //    });
+            services.AddAuthentication()                        //added in ep19
+                .AddFacebook(config =>
+                {
+                    config.AppId = "3312061498920684";
+                    config.AppSecret = "381705d3891d07d37ce0189104e2de78";
+                });
+            services.AddAuthentication()
+                .AddGoogle(config =>
+                {
+                    config.ClientId = "898380650543-9onitocmc34mjrpeal8pibp342n0e1ot.apps.googleusercontent.com";
+                    config.ClientSecret = "iiPsGDR6ure6O8hflsuVZWQz";
+                });
 
             services.AddControllersWithViews();
         }

@@ -41,11 +41,11 @@ namespace IdentityServer.Controllers
         [HttpGet]
         public async Task<IActionResult> Login(string returnUrl)
         {
-            //var externalProviders = await _signInManager.GetExternalAuthenticationSchemesAsync();
+            var externalProviders = await _signInManager.GetExternalAuthenticationSchemesAsync();   //added in ep19
             return View(new LoginViewModel
             {
                 ReturnUrl = returnUrl,
-                //    ExternalProviders = externalProviders
+                ExternalProviders = externalProviders           //added in ep19
             });
         }
 
@@ -95,14 +95,14 @@ namespace IdentityServer.Controllers
             return View();
         }
 
-        public async Task<IActionResult> ExternalLogin(string provider, string returnUrl)
+        public async Task<IActionResult> ExternalLogin(string provider, string returnUrl)       //added in ep19
         {
             var redirectUri = Url.Action(nameof(ExteranlLoginCallback), "Auth", new { returnUrl });
             var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUri);
             return Challenge(properties, provider);
         }
 
-        public async Task<IActionResult> ExteranlLoginCallback(string returnUrl)
+        public async Task<IActionResult> ExteranlLoginCallback(string returnUrl)                //added in ep19
         {
             var info = await _signInManager.GetExternalLoginInfoAsync();
             if (info == null)
@@ -118,7 +118,7 @@ namespace IdentityServer.Controllers
                 return Redirect(returnUrl);
             }
 
-            var username = info.Principal.FindFirst(ClaimTypes.Name.Replace(" ", "_")).Value;
+            var username = info.Principal.FindFirst(ClaimTypes.Name).Value.Replace(' ', '_');
             return View("ExternalRegister", new ExternalRegisterViewModel
             {
                 Username = username,
