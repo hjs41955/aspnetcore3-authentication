@@ -3,9 +3,9 @@ var config = {
     authority: "https://localhost:44305/",
     client_id: "client_id_js",
     redirect_uri: "https://localhost:44345/Home/SignIn",
-    response_type: "id_token token",
+    //response_type: "id_token token",                                              //removed in ep20
     post_logout_redirect_uri: "https://localhost:44345/Home/Index",                 //added in ep18
-    //response_type: "code",
+    response_type: "code",                                                          //added in ep20
     scope: "openid rc.scope ApiOne ApiTwo"      //added in ep16
 };
 

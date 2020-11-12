@@ -27,6 +27,7 @@ namespace MvcClient
                     config.SaveTokens = true;
                     config.ResponseType = "code";
                     config.SignedOutCallbackPath = "/Home/Index";       //added in ep18
+                    //config.UsePkce = true;    //in ep20, this is not needed here since Mvc app natively supports pkce, but not in JavaScript
 
                     // configure cookie claim mapping                   //added in ep12. this allows you to manipulate what to include/remove from teh claim
                     config.ClaimActions.DeleteClaim("amr");

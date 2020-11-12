@@ -44,7 +44,7 @@ namespace IdentityServer
                     ClientSecrets = { new Secret("client_secret_mvc".ToSha256()) },
 
                     AllowedGrantTypes = GrantTypes.Code,
-                    //RequirePkce = true,
+                    RequirePkce = true,                     //added in ep20 (will configure IS to use PKCE flow to generate auth code. advised to use this for native app and java scripts
 
                     RedirectUris = { "https://localhost:44322/signin-oidc" },       //unlike ClientCredential type, auth code flow requires redirect URI
                     PostLogoutRedirectUris = { "https://localhost:44322/Home/Index" },  //added in ep18
@@ -66,10 +66,10 @@ namespace IdentityServer
                 new Client {                            //added in ep14
                     ClientId = "client_id_js",
 
-                    //AllowedGrantTypes = GrantTypes.Code,
-                    AllowedGrantTypes = GrantTypes.Implicit,
-                    //RequirePkce = true,
-                    //RequireClientSecret = false,
+                    AllowedGrantTypes = GrantTypes.Code,        //added in ep20 (the flow is still implicit, but we will receive the code back in url)
+                    //AllowedGrantTypes = GrantTypes.Implicit,  //removed in ep20
+                    RequirePkce = true,                         //added in ep20
+                    RequireClientSecret = false,                //added in ep20
 
                     RedirectUris = { "https://localhost:44345/home/signin" },
                     PostLogoutRedirectUris = { "https://localhost:44345/Home/Index" },      //added in ep18

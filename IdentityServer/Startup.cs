@@ -57,20 +57,22 @@ namespace IdentityServer
 
             services.AddIdentityServer()
                 .AddAspNetIdentity<IdentityUser>()                  //added in ep11. adding this will allow IdentityServer to have access to above lines #36-44
-                .AddConfigurationStore(options =>                   //below 10 lines are added in ep17 for SQL Server
-                {
-                    options.ConfigureDbContext = b => b.UseSqlServer(connectionString,  //used for config data such as clients, resources, and scopes
-                        sql => sql.MigrationsAssembly(assembly));
-                })
-                .AddOperationalStore(options =>
-                {
-                    options.ConfigureDbContext = b => b.UseSqlServer(connectionString,  //used for temporary operational data such as auth codes, refresh tokens
-                        sql => sql.MigrationsAssembly(assembly));
-                })
-                //.AddSigningCredential(certificate);                                   //added in ep18, re-comented out in ep19
-                //.AddInMemoryApiResources(Configuration.GetApis())                     //commented out in ep17
-                //.AddInMemoryIdentityResources(Configuration.GetIdentityResources())   //this line added for ep10, commented out in ep17
-                //.AddInMemoryClients(Configuration.GetClients())                       //commented out in ep17
+                                                                    //from here to line 70 are commented out in ep20
+                                                                    //.AddConfigurationStore(options =>                   //below 10 lines are added in ep17 for SQL Server
+                                                                    //{
+                                                                    //    options.ConfigureDbContext = b => b.UseSqlServer(connectionString,  //used for config data such as clients, resources, and scopes
+                                                                    //        sql => sql.MigrationsAssembly(assembly));
+                                                                    //})
+                                                                    //.AddOperationalStore(options =>
+                                                                    //{
+                                                                    //    options.ConfigureDbContext = b => b.UseSqlServer(connectionString,  //used for temporary operational data such as auth codes, refresh tokens
+                                                                    //        sql => sql.MigrationsAssembly(assembly));
+                                                                    //})
+                                                                    //.AddSigningCredential(certificate);                                   //added in ep18, re-comented out in ep19
+                //below 3 lines are uncommented in ep20
+                .AddInMemoryApiResources(Configuration.GetApis())                     //commented out in ep17
+                .AddInMemoryIdentityResources(Configuration.GetIdentityResources())   //this line added for ep10, commented out in ep17
+                .AddInMemoryClients(Configuration.GetClients())                       //commented out in ep17
                 .AddDeveloperSigningCredential();                                       //commented out in ep18, added back in ep19
 
             services.AddAuthentication()                        //added in ep19
