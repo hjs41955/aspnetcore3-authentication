@@ -145,3 +145,8 @@ ep 20 -
   of web app that can securely call to get the ID Token or Access Token, but JavaScript client, it needs more security.
   Once it calls the IS, it receives a code, and that code is used by oidc_client to request Access and ID tokens.
   He is brief in explaining, so need to do more research on this PKCE to trully understand this.
+
+ep 21 -
+  used proj (IdentityServer, WPF Client, ApiOne)
+  in this episode, he create new WPF client and shows how it can leverage IS to get the user authenticated, and also get the
+  Access token to call the ApiOne
