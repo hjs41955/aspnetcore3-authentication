@@ -138,3 +138,10 @@ ep 19 -
   call ApiOne has no user info (such as google or facebook)
   
   once you login using facebook or google, login is stored in the database, so until it expires, you won't need to re-login
+
+ep 20 -
+  used proj (IdentityServer, MvcClient, JavaScript Client, ApiOne)
+  in this episode, PKCE is used to enhance the security of Javascript Client. This won't do much for MvcClient or any kind
+  of web app that can securely call to get the ID Token or Access Token, but JavaScript client, it needs more security.
+  Once it calls the IS, it receives a code, and that code is used by oidc_client to request Access and ID tokens.
+  He is brief in explaining, so need to do more research on this PKCE to trully understand this.
