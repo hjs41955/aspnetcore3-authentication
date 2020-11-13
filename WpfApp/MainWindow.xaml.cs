@@ -46,7 +46,7 @@ namespace WpfApp
             LoginResult result;
             try
             {
-                result = await _oidcClient.LoginAsync();
+                result = await _oidcClient.LoginAsync();            //this calls the IS AuthController.Login
             }
             catch (Exception ex)
             {
@@ -57,7 +57,7 @@ namespace WpfApp
             if (result.IsError)
             {
                 //Message.Text = result.Error == "UserCancel" ? "The sign-in window was closed before authorization was completed." : result.Error;
-
+                int i = 0;
             }
             else
             {
