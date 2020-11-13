@@ -149,4 +149,15 @@ ep 20 -
 ep 21 -
   used proj (IdentityServer, WPF Client, ApiOne)
   in this episode, he create new WPF client and shows how it can leverage IS to get the user authenticated, and also get the
-  Access token to call the ApiOne
+  Access token to call the ApiOne.
+  OnButtonClick on the wpf form, it will 1. create oidc client with the information already registered in IS configuration.cs
+  2. call oidcClient.LoginAsync() this will call the IS AuthController.Login() 3. login form is displayed on the WPF browser
+  4. user can login with the pwd or external auth (google/facebook) 5. once successfully logged in, oidcClient.LoginAsync()
+  called in step #2 will receive result back. that means the redirectUri passed into oidcClient is not really used or used
+  in the background to process and parse the result sent by the IS and create the result object and returns it. all dirty
+  work in sending the code and receiving the result and parsing the tokens are done behind the back by the oidcClient
+  6. we get the User object from the result to determine if the login was successful or not. 7. we can get the accessToken 
+  from the result object, and use that to call the ApiOne
+  
+ep 22 -
+
