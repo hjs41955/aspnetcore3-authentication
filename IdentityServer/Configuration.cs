@@ -126,23 +126,23 @@ namespace IdentityServer
                     AllowAccessTokensViaBrowser = true,
                     RequireConsent = false,
                 },
-                //new Client {
-                //    ClientId = "xamarin",
+                new Client {            //added in ep22
+                    ClientId = "xamarin",
 
-                //    AllowedGrantTypes = GrantTypes.Code,
-                //    RequirePkce = true,
-                //    RequireClientSecret = false,
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true,
+                    RequireClientSecret = false,
 
-                //    RedirectUris = { "xamarinformsclients://callback" },
+                    RedirectUris = { "xamarinformsclients://callback" },
 
-                //    AllowedScopes = {
-                //        IdentityServerConstants.StandardScopes.OpenId,
-                //        "ApiOne",
-                //    },
+                    AllowedScopes = {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        "ApiOne",
+                    },
 
-                //    AllowAccessTokensViaBrowser = true,
-                //    RequireConsent = false,
-                //},
+                    AllowAccessTokensViaBrowser = true,
+                    RequireConsent = false,
+                },
 		//new Client {
   //                  ClientId = "flutter",
 

@@ -15,7 +15,8 @@ namespace ApiOne
             services.AddAuthentication("Bearer")        //authentication is done using Open-ID token using the identity server
                 .AddJwtBearer("Bearer", config =>
                 {
-                    config.Authority = "https://localhost:44305";   //identity server address
+                    //config.Authority = "https://localhost:44305";   //identity server address
+                    config.Authority = "http://192.168.1.107:5000";     //added in ep22 (replaced above line)
 
                     config.Audience = "ApiOne";         //the token is for 'ApiOne' API
 
