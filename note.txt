@@ -160,4 +160,10 @@ ep 21 -
   from the result object, and use that to call the ApiOne
   
 ep 22 -
-
+  this is actually 21.2 Xamarin
+  used proj (IdentityServer - ran uisng dotnet run in background, ApiOne - same,  XamarinApp.Android)
+  was not able to run this proj since the Xamarin was not building correctly. 
+  Since localhost of the Xamarin was conflicting with localhost of the windows machine, he had to use actual IP address
+  for ApiOne.
+  this proj is pretty similar with ep21 in a sense of using oidc_client and pkce. What's registered in IdentityServer
+  in configuration.cs is almost same. revisit this project when needed to study Xamarin
