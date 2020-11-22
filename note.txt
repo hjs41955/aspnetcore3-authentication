@@ -1,4 +1,37 @@
-ep9 - 
+ep1 - Authenticateion. Basics
+  used proj (basic)
+  in this episode, he shows 
+  in order to access [Authorize] end-point, it needs to know if you are authorized, and in order to authorize, it needs to
+  know who you are. In .net core ConfigureServices, you need to add serivces.AddAuthentication() and make sure to specify 
+  how to authenticate by adding config.LoginPage = '/Home/Authenticate' to show if user is not authenticated, route to here.
+  In Authenticate methods, he shows how to build claims --> identity --> principal. And using that principal he calls
+  HttpContext.SignInAsync(userPrincipal) to log in (to authenticate). We still cannot call the end point with [Authorize]
+  yet. In order to resolve it, need to call below, then will be able to access [Authorize] end point
+  1. app.UseRouting()
+  2. app.UseAuthentication()
+  3. app.UseAuthorization()
+  4. app.UseEndPoints()
+
+ep2 - Authentication. Identity Authentication 
+  used proj (IdentityExample)
+
+ep2b - Identity. Email verification
+
+ep3 - Authentication. Authorization (All about policies and claims)
+
+ep4 - Authorization. Extras (AuthorizationService & much more)
+
+ep4b - Authorization. Razor Authorization
+
+ep5 - OAuth. JWT Bearer
+
+ep6 - OAuth. Auth Client
+
+ep7 - OAuth. ecuring API
+
+ep8 - OAuth. Refresh Token
+
+ep9 - IdentityServer4. Client Credential (Introduction)
   used proj (IdentityServer, ApiOne, ApiTwo)
   in this episode, IdentityServer is used for OAuth & OIDC. ApiOne is created as an API, and ApiTwo is created to act
   as a client API calling ApiOne using the token created using ClientCredential. ApiTwo is registered in IdentityServer as
@@ -8,18 +41,18 @@ ep9 -
   For ApiOne, in the ConfigureServices, it tells, it is authenticating from the IdentityServer using Bearer token (oidc)
   therefore, any [Authorize] method in ApiOne must have a token dealt out from IdentityServer with scope (ApiOne)
 
-ep10 -
+ep10 - IdentityServer4. Authorization Code Flow
   used proj (IdentityServer, MvcClient)
   in this episode, it just prepares and create MvcClient to use authorization-code flow for openID connect for ep11
 
-ep11 - 
+ep11 - IdentityServer4. Identity Login & Register
   used proj (IdentitiyServer, MvcClient)
   in this episode, log-in and register page is created. So MVC Client page home/secret [Authorize] is first accessed, 
   it will be automatically directed to IdentityServer's login page (since the authorization-code flow is used)
   If the user is successfully registered or logged-in, it user is authenticated and will be re-directed to 
   mvcClient/home/secret page
 
-ep12 - 
+ep12 - IdentityServer4. Cookie, id-token, access token, claims
   used proj (IdentityServer, ApiOne, MvcClient)
   first, it describes the cookies created. 
   AspNetCore.Cookie - this is a cookie on the MvcClient client's side
@@ -40,11 +73,11 @@ ep12 -
   also, it shows how to call ApiOne using the access token from MvcClient
   also, it shows how to add the claims to either ID Token or Access token
 
-ep13 - 
+ep13 - IdentityServer4. refresh token
   used proj (IdentityServer, MvcClient, ApiOne)
   In this episode, he implements the refresh-token using IdentityServer4
 
-ep14 -
+ep14 - IdentityServer4. implicit flow
   used proj (IdentityServer, JavascriptClient)
   in this episode, he implements the Implicit call to get the ID-Token and Access token from IdentityServer
   also, it shows the flow from 1. click on sign-in, 2. re-direct to IdentityServer's login page, 3. if successfully logged-in
@@ -53,7 +86,7 @@ ep14 -
   -Sign-in.js - custom way to build the callback url with all params to call IdentitiyServer's login function
   -Sign-in-callback.js - parses the string received from the IdentityServer and store ID and Access token to browsers memory
 
-ep15 - 
+ep15 - IdentityServer4. oidc-client.js
   used proj (IdentityServer, JavascriptClient, ApiOne)
   in this episode, he shows how to implement signin re-direct using oidc-client.js instead of writing custom one as ep14
   still using the Implicit flow
@@ -66,7 +99,7 @@ ep15 -
   6. also the main.js adds the Bearer token to the header Authorization using Axios, 
   7. user clicks on the 'call apione' button, 8. use Axio (as httpContext) to call the API (Url) and will get it successfully 
 
-ep16 -
+ep16 - IdentityServer4. persistence & claims & refreshing (implicit flow)
   used proj (IdentityServer, JavascriptClient, ApiOne)
   first, it enabled LocalStorage (so user can close the browser and reopen to connect to ApiOne without authnticating
   for persistance.
@@ -82,7 +115,7 @@ ep16 -
   Cookie - both client and server side read support, 4KB size, expiry can be set per cookie, purposed for server,
     if httpOnly flag=true, it will be secured and cannot be read by client
 
-ep 17 -
+ep 17 - IdentityServer4. EF Core setup
   used proj (IdentityServer, MvcClient, JavascriptClient ApiOne)
   this episode teaches how to convert in-memory storage to sql server storage using EF
   before anything, he calls (dotnet tool install --global dotnet-ef) to install the EF tool
@@ -93,13 +126,13 @@ ep 17 -
   create the database
   Db-Scripts.txt shows all above commands for migrations and database
   
-ep 18 -
+ep 18 - IdentityServer4. sign-out & certificate
   used proj (IdentityServer, MvcClient, JavascriptClient, ApiOne)
   in thie episode, he shows how to add the log-out on both mvcClient and JsClient
   nest, he explains how to apply certificate to the IdentityServer. using dev mode won't require it, but in production
   environment, certificate is required, and no longer needing .AddDeveloperSigningCredential();
 
-ep 19 -
+ep 19 -  IdentityServer4. external providers (Facebook)
   used proj (IdentityServer, MvcClient, ApiOne)
   in this episode, he shows how to authenticate via Facebook. First, he shows how to get the Facebook OAuth login registered.
   Then he shows how to register the user using the Facebook OpenID, and that information is stored on the local SQL Server
@@ -139,14 +172,14 @@ ep 19 -
   
   once you login using facebook or google, login is stored in the database, so until it expires, you won't need to re-login
 
-ep 20 -
+ep 20 - IdentityServer4.PKCE
   used proj (IdentityServer, MvcClient, JavaScript Client, ApiOne)
   in this episode, PKCE is used to enhance the security of Javascript Client. This won't do much for MvcClient or any kind
   of web app that can securely call to get the ID Token or Access Token, but JavaScript client, it needs more security.
   Once it calls the IS, it receives a code, and that code is used by oidc_client to request Access and ID tokens.
   He is brief in explaining, so need to do more research on this PKCE to trully understand this.
 
-ep 21 -
+ep 21 - IdentityServer4. WPF
   used proj (IdentityServer, WPF Client, ApiOne)
   in this episode, he create new WPF client and shows how it can leverage IS to get the user authenticated, and also get the
   Access token to call the ApiOne.
@@ -159,7 +192,7 @@ ep 21 -
   6. we get the User object from the result to determine if the login was successful or not. 7. we can get the accessToken 
   from the result object, and use that to call the ApiOne
   
-ep 22 -
+ep 22 -IdentityServer4. Xamarin
   this is actually 21.2 Xamarin
   used proj (IdentityServer - ran uisng dotnet run in background, ApiOne - same,  XamarinApp.Android)
   was not able to run this proj since the Xamarin was not building correctly. 
