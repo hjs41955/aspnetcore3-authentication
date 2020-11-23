@@ -39,6 +39,22 @@ ep2b - Identity. Email verification
   If found, it calls UserManager.ConfirmEmailAsync(user, code), and this will complete the registration portion
 
 ep3 - Authentication. Authorization (All about policies and claims)
+  used proj (Basics)
+  In episode ep1, he showed how the services.AddAuthorization() default way, so any user who are authenticated are
+  automatically authorized. In this episode, he first shows what are under the hood as a default. 
+  Next, he shows how to add policy by config.AddPolicy(...) For example, requiring DOB as claim in order to authorize,
+  or require 'admin' role in order to authorize.
+  Also, the end point can specify what kind of policy it requires [Authorize(Policy = "claim.DoB")] or
+  [Authorize(Roles = "Admin")]
+  example, user who is authenticated and missing DoB claim, has role="admin"
+    will be authenticated
+    will be authorized to call secret method [Authorize]
+    will not be authorized to call secretPolicy [Authorize(Policy = "claim.DoB")]
+    will be authorized to call seretRole [Authorize (Roles = "Admin")]
+  In services.Authorization(config =>....) config.AddPolicy("Claim.DoB" is added as RequireCustomClaim). This will
+  call the extension method, and within that, it will call builder.AddRequirements to add new requreClaim. Once added,
+  whenever user calls any method that is marked [Authorize(Policy = "claim.DoB")], this handler for custom claim 
+  HandleRequirementAsync() is called to check if the DoB claim exists or not
 
 ep4 - Authorization. Extras (AuthorizationService & much more)
 
