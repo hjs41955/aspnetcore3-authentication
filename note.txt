@@ -27,6 +27,16 @@ ep2 - Authentication. Identity Authentication
   6. while logged in, user can call the home/secret endpoint
 
 ep2b - Identity. Email verification
+  used proj (IdentityExample)
+  In this episode, he shows how to enable email verification as part of registration process. The registration is not complete
+  until the user verifies by accessing the link. the sample link is shown below
+  "http://localhost:58375/Home/VerifyEmail?userId=f966799a-95a8-44a2-bfcc-0ddc0f584092&code=CfDJ8Kaa%2BwFM9w9Kno6yk1nQK9qlIpoMlcpOyXPfWbeeRZaqLwuZXYd%2BqGuackG9p0C9gTjbz3l47Z%2FdZxNCXYZVpn8bU0trX%2B0Oy0pMsDNCnwirlYRXctdkRQbRSEJF%2BOMLM3yBgJvWuXuzVozQ7DGYon195Y2xsbltfAkGX3H1uLSTX0DHIIoppScOlS%2FUzZL7dSdoHIgFlOVrzedUsQe%2Byu9d8V%2F8%2BcSHBBYJsy9MaNX%2BVr9GeY%2BHsxldvqCGuV%2B8Kw%3D%3D"
+  In this project, I had to disable actually sending portion from MailKit since it wasn't properly running.
+  UserManager.GenerateEmailConfirmationTokenAsync(user) method is used to generate the code that can later be used to find
+  the user when user clicks on the link. 
+  VerifyEmail(userid, code) is the method called when user click on the link from the email. In this method, 
+  UserManager.FindIdAsync(userIdCode) is called to find the User by the userIdCode (f966799a-95a8-44a2-bfcc-0ddc0f584092)
+  If found, it calls UserManager.ConfirmEmailAsync(user, code), and this will complete the registration portion
 
 ep3 - Authentication. Authorization (All about policies and claims)
 
