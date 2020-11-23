@@ -9,11 +9,22 @@ ep1 - Authenticateion. Basics
   yet. In order to resolve it, need to call below, then will be able to access [Authorize] end point
   1. app.UseRouting()
   2. app.UseAuthentication()
-  3. app.UseAuthorization()
+  3. app.UseAuthorization() <-- this will actually allow to call [Authorize] if authenticated
   4. app.UseEndPoints()
 
 ep2 - Authentication. Identity Authentication 
   used proj (IdentityExample)
+  In this episode, he shows the basic way of registering and loggin in using the password using EF, and SignInManager
+  and USerManager to create and login, logout.
+  1. store application login stored to database (in this examle, he uses memory DB)
+  2. if not logged in, services.ConfigureApplicationCookie() is setup to call /home/login and once logged in, will
+  store the login info to cookie
+  3. In HomeController, he uses UserManager<IdentityUSer> to create user using CreateAsync() in register()
+  or find the registered user by calling FindByNameAsync() in Login()
+  4. he uses SignInManager<IdentityUser> to sign in using PasswordSignInAsync() after user is created in register()
+  or calls same method in Login() after the UserManager finds the user
+  5. if users calls home/logout, it will call SingInManager.SignOutAsync() and will resultin removal of the cookie
+  6. while logged in, user can call the home/secret endpoint
 
 ep2b - Identity. Email verification
 
