@@ -10,16 +10,17 @@ namespace IdentityExample.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly IEmailService _emailService;
+        //private readonly IEmailService _emailService;
 
         public HomeController(
             UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
-            IEmailService emailService)
+            SignInManager<IdentityUser> signInManager
+            //,IEmailService emailService
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _emailService = emailService;
+            //_emailService = emailService;
         }
 
         public IActionResult Index()
@@ -77,36 +78,43 @@ namespace IdentityExample.Controllers
 
             if (result.Succeeded)
             {
-                //generation of the email token
-                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                var signInResult = await _signInManager.PasswordSignInAsync(user, password, false, false);
 
-                var link = Url.Action(nameof(VerifyEmail), "Home", new { userId = user.Id, code }, Request.Scheme, Request.Host.ToString());
+                if (signInResult.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
 
-                await _emailService.SendAsync("test@test.com", "email verify", $"<a href=\"{link}\">Verify Email</a>", true);
+                ////generation of the email token
+                //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
-                return RedirectToAction("EmailVerification");
+                //var link = Url.Action(nameof(VerifyEmail), "Home", new { userId = user.Id, code }, Request.Scheme, Request.Host.ToString());
+
+                //await _emailService.SendAsync("test@test.com", "email verify", $"<a href=\"{link}\">Verify Email</a>", true);
+
+                //return RedirectToAction("EmailVerification");
             }
 
             return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> VerifyEmail(string userId, string code)
-        {
-            var user = await _userManager.FindByIdAsync(userId);
+        //public async Task<IActionResult> VerifyEmail(string userId, string code)
+        //{
+        //    var user = await _userManager.FindByIdAsync(userId);
 
-            if (user == null) return BadRequest();
+        //    if (user == null) return BadRequest();
 
-            var result = await _userManager.ConfirmEmailAsync(user, code);
+        //    var result = await _userManager.ConfirmEmailAsync(user, code);
 
-            if (result.Succeeded)
-            {
-                return View();
-            }
+        //    if (result.Succeeded)
+        //    {
+        //        return View();
+        //    }
 
-            return BadRequest();
-        }
+        //    return BadRequest();
+        //}
 
-        public IActionResult EmailVerification() => View();
+        //public IActionResult EmailVerification() => View();
 
         public async Task<IActionResult> LogOut()
         {

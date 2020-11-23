@@ -13,12 +13,12 @@ namespace IdentityExample
 {
     public class Startup
     {
-        private IConfiguration _config;
+        //private IConfiguration _config;
 
-        public Startup(IConfiguration config)
-        {
-            _config = config;
-        }
+        //public Startup(IConfiguration config)
+        //{
+        //    _config = config;
+        //}
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -34,7 +34,7 @@ namespace IdentityExample
                 config.Password.RequireDigit = false;
                 config.Password.RequireNonAlphanumeric = false;
                 config.Password.RequireUppercase = false;
-                config.SignIn.RequireConfirmedEmail = true;
+                //config.SignIn.RequireConfirmedEmail = true;
             })
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
@@ -45,7 +45,7 @@ namespace IdentityExample
                 config.LoginPath = "/Home/Login";
             });
 
-            services.AddMailKit(config => config.UseMailKit(_config.GetSection("Email").Get<MailKitOptions>()));
+            //services.AddMailKit(config => config.UseMailKit(_config.GetSection("Email").Get<MailKitOptions>()));
 
             services.AddControllersWithViews();
         }
