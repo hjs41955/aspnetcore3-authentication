@@ -25,6 +25,7 @@ namespace Basics
 
             services.AddAuthorization(config =>
             {
+                //from line 29 - 35 are what happens under the hood by default.
                 //var defaultAuthBuilder = new AuthorizationPolicyBuilder();
                 //var defaultAuthPolicy = defaultAuthBuilder
                 //    .RequireAuthenticatedUser()
@@ -47,11 +48,11 @@ namespace Basics
                 });
             });
 
-            services.AddSingleton<IAuthorizationPolicyProvider, CustomAuthorizationPolicyProvider>();
-            services.AddScoped<IAuthorizationHandler, SecurityLevelHandler>();
+            //services.AddSingleton<IAuthorizationPolicyProvider, CustomAuthorizationPolicyProvider>();
+            //services.AddScoped<IAuthorizationHandler, SecurityLevelHandler>();
             services.AddScoped<IAuthorizationHandler, CustomRequireClaimHandler>();
-            services.AddScoped<IAuthorizationHandler, CookieJarAuthorizationHandler>();
-            services.AddScoped<IClaimsTransformation, ClaimsTransformation>();
+            //services.AddScoped<IAuthorizationHandler, CookieJarAuthorizationHandler>();
+            //services.AddScoped<IClaimsTransformation, ClaimsTransformation>();
 
             services.AddControllersWithViews(config =>
             {
@@ -64,14 +65,14 @@ namespace Basics
                 //config.Filters.Add(new AuthorizeFilter(defaultAuthPolicy));
             });
 
-            services.AddRazorPages()
-                .AddRazorPagesOptions(config =>
-                {
-                    config.Conventions.AuthorizePage("/Razor/Secured");
-                    config.Conventions.AuthorizePage("/Razor/Policy", "Admin");
-                    config.Conventions.AuthorizeFolder("/RazorSecured");
-                    config.Conventions.AllowAnonymousToPage("/RazorSecured/Anon");
-                });
+            //services.AddRazorPages()
+            //    .AddRazorPagesOptions(config =>
+            //    {
+            //        config.Conventions.AuthorizePage("/Razor/Secured");
+            //        config.Conventions.AuthorizePage("/Razor/Policy", "Admin");
+            //        config.Conventions.AuthorizeFolder("/RazorSecured");
+            //        config.Conventions.AllowAnonymousToPage("/RazorSecured/Anon");
+            //    });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -92,7 +93,7 @@ namespace Basics
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
-                endpoints.MapRazorPages();
+                //endpoints.MapRazorPages();
             });
         }
     }

@@ -34,17 +34,17 @@ namespace Basics.Controllers
             return View("Secret");
         }
 
-        [SecurityLevel(5)]
-        public IActionResult SecretLevel()
-        {
-            return View("Secret");
-        }
+        //[SecurityLevel(5)]
+        //public IActionResult SecretLevel()
+        //{
+        //    return View("Secret");
+        //}
 
-        [SecurityLevel(10)]
-        public IActionResult SecretHigherLevel()
-        {
-            return View("Secret");
-        }
+        //[SecurityLevel(10)]
+        //public IActionResult SecretHigherLevel()
+        //{
+        //    return View("Secret");
+        //}
 
         [AllowAnonymous]
         public IActionResult Authenticate()
@@ -53,10 +53,10 @@ namespace Basics.Controllers
             {
                 new Claim(ClaimTypes.Name, "Bob"),
                 new Claim(ClaimTypes.Email, "Bob@fmail.com"),
-                new Claim(ClaimTypes.DateOfBirth, "11/11/2000"),
-                new Claim(ClaimTypes.Role, "Admin"),
+                new Claim(ClaimTypes.DateOfBirth, "11/11/2000"),        //for ep3, exmaple requires this claim in order to be authorized to call SecretPolicy()
+                new Claim(ClaimTypes.Role, "Admin"),                    //for ep3, this is required to call SecretRole()
                 new Claim(ClaimTypes.Role, "AdminTwo"),
-                new Claim(DynamicPolicies.SecurityLevel, "7"),
+                //new Claim(DynamicPolicies.SecurityLevel, "7"),
                 new Claim("Grandma.Says", "Very nice boi."),
             };
 
@@ -76,22 +76,22 @@ namespace Basics.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> DoStuff(
-            [FromServices] IAuthorizationService authorizationService)
-        {
-            // we are doing stuff here
+        //public async Task<IActionResult> DoStuff(
+        //    [FromServices] IAuthorizationService authorizationService)
+        //{
+        //    // we are doing stuff here
 
-            var builder = new AuthorizationPolicyBuilder("Schema");
-            var customPolicy = builder.RequireClaim("Hello").Build();
+        //    var builder = new AuthorizationPolicyBuilder("Schema");
+        //    var customPolicy = builder.RequireClaim("Hello").Build();
 
-            var authResult = await authorizationService.AuthorizeAsync(User, customPolicy);
+        //    var authResult = await authorizationService.AuthorizeAsync(User, customPolicy);
 
-            if (authResult.Succeeded)
-            {
-                return View("Index");
-            }
+        //    if (authResult.Succeeded)
+        //    {
+        //        return View("Index");
+        //    }
 
-            return View("Index");
-        }
+        //    return View("Index");
+        //}
     }
 }

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 namespace Basics.AuthorizationRequirements
 {
+    //this class is added in ep3
     public class CustomRequireClaim : IAuthorizationRequirement
     {
         public CustomRequireClaim(string claimType)
