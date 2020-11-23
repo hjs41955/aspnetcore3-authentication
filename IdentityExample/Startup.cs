@@ -13,12 +13,12 @@ namespace IdentityExample
 {
     public class Startup
     {
-        //private IConfiguration _config;
+        private IConfiguration _config;         //added in ep2b
 
-        //public Startup(IConfiguration config)
-        //{
-        //    _config = config;
-        //}
+        public Startup(IConfiguration config)   //added in ep2b
+        {
+            _config = config;
+        }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -34,9 +34,9 @@ namespace IdentityExample
                 config.Password.RequireDigit = false;
                 config.Password.RequireNonAlphanumeric = false;
                 config.Password.RequireUppercase = false;
-                //config.SignIn.RequireConfirmedEmail = true;
+                config.SignIn.RequireConfirmedEmail = true;             //added in ep2b
             })
-                .AddEntityFrameworkStores<AppDbContext>()
+                .AddEntityFrameworkStores<AppDbContext>()               //use AppDbContext to store Identity (using EF)
                 .AddDefaultTokenProviders();
 
             services.ConfigureApplicationCookie(config =>
@@ -45,7 +45,7 @@ namespace IdentityExample
                 config.LoginPath = "/Home/Login";
             });
 
-            //services.AddMailKit(config => config.UseMailKit(_config.GetSection("Email").Get<MailKitOptions>()));
+            services.AddMailKit(config => config.UseMailKit(_config.GetSection("Email").Get<MailKitOptions>()));    //added in ep2b
 
             services.AddControllersWithViews();
         }

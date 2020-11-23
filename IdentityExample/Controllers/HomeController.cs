@@ -10,17 +10,17 @@ namespace IdentityExample.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-        //private readonly IEmailService _emailService;
+        private readonly IEmailService _emailService;                       //added in ep2b
 
         public HomeController(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager
-            //,IEmailService emailService
+            , IEmailService emailService                                    //added in ep2b
             )
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            //_emailService = emailService;
+            _emailService = emailService;                                   //added in ep2b
         }
 
         public IActionResult Index()
@@ -78,43 +78,46 @@ namespace IdentityExample.Controllers
 
             if (result.Succeeded)
             {
-                var signInResult = await _signInManager.PasswordSignInAsync(user, password, false, false);
+                //below 5 lines are commented out in ep2b
+                //var signInResult = await _signInManager.PasswordSignInAsync(user, password, false, false);
 
-                if (signInResult.Succeeded)
-                {
-                    return RedirectToAction("Index");
-                }
+                //if (signInResult.Succeeded)     //in ep2b, if we enabled the email verification, then this would be false until email is verified
+                //{
+                //    return RedirectToAction("Index");
+                //}
 
-                ////generation of the email token
-                //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                //generation of the email token, below 4 lines are added in ep2b
+                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
-                //var link = Url.Action(nameof(VerifyEmail), "Home", new { userId = user.Id, code }, Request.Scheme, Request.Host.ToString());
+                var link = Url.Action(nameof(VerifyEmail), "Home", new { userId = user.Id, code }, Request.Scheme, Request.Host.ToString());
 
+                //commented out below line since it crashes
                 //await _emailService.SendAsync("test@test.com", "email verify", $"<a href=\"{link}\">Verify Email</a>", true);
 
-                //return RedirectToAction("EmailVerification");
+                return RedirectToAction("EmailVerification");
             }
 
             return RedirectToAction("Index");
         }
 
-        //public async Task<IActionResult> VerifyEmail(string userId, string code)
-        //{
-        //    var user = await _userManager.FindByIdAsync(userId);
+        //this method added in ep2b
+        public async Task<IActionResult> VerifyEmail(string userId, string code)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
 
-        //    if (user == null) return BadRequest();
+            if (user == null) return BadRequest();
 
-        //    var result = await _userManager.ConfirmEmailAsync(user, code);
+            var result = await _userManager.ConfirmEmailAsync(user, code);
 
-        //    if (result.Succeeded)
-        //    {
-        //        return View();
-        //    }
+            if (result.Succeeded)
+            {
+                return View();
+            }
 
-        //    return BadRequest();
-        //}
+            return BadRequest();
+        }
 
-        //public IActionResult EmailVerification() => View();
+        public IActionResult EmailVerification() => View();         //added in ep2b
 
         public async Task<IActionResult> LogOut()
         {
