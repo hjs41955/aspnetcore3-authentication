@@ -57,6 +57,14 @@ ep3 - Authentication. Authorization (All about policies and claims)
   HandleRequirementAsync() is called to check if the DoB claim exists or not
 
 ep4 - Authorization. Extras (AuthorizationService & much more)
+  used proj (Basics)
+  in this episode, he covers alot of stuff
+  1. in DoStuff, he shows how to AuthorizeAsync within the method. The method can pass-in IAuthorizationService as a param
+  and use that to call AuthorizeAsync with customPolicy and check any specific claim or something
+  2. in startup, after adding services.AddAuthorization(config => ...), can add services.AddScope<IClaimsTransformation,>()
+  to transform current context's identity claims. New temp claim can be added or removed on the fly by implementing 
+  IClaimTransformation
+  3. 
 
 ep4b - Authorization. Razor Authorization
 
