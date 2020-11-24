@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Security.Claims;
@@ -48,11 +49,11 @@ namespace Basics
                 });
             });
 
-            //services.AddSingleton<IAuthorizationPolicyProvider, CustomAuthorizationPolicyProvider>();
-            //services.AddScoped<IAuthorizationHandler, SecurityLevelHandler>();
+            services.AddSingleton<IAuthorizationPolicyProvider, CustomAuthorizationPolicyProvider>();       //added in ep4
+            services.AddScoped<IAuthorizationHandler, SecurityLevelHandler>();                              //added in ep4
             services.AddScoped<IAuthorizationHandler, CustomRequireClaimHandler>();
-            //services.AddScoped<IAuthorizationHandler, CookieJarAuthorizationHandler>();
-            //services.AddScoped<IClaimsTransformation, ClaimsTransformation>();
+            services.AddScoped<IAuthorizationHandler, CookieJarAuthorizationHandler>();                     //added in ep4
+            services.AddScoped<IClaimsTransformation, ClaimsTransformation>();                              //added in ep4
 
             services.AddControllersWithViews(config =>
             {
@@ -61,8 +62,8 @@ namespace Basics
                     .RequireAuthenticatedUser()
                     .Build();
 
-                // global authorization filter
-                //config.Filters.Add(new AuthorizeFilter(defaultAuthPolicy));
+                // global authorization filter (this makes every methods/end points to require [Authorize] by default
+                config.Filters.Add(new AuthorizeFilter(defaultAuthPolicy));
             });
 
             //services.AddRazorPages()
