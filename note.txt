@@ -58,13 +58,32 @@ ep3 - Authentication. Authorization (All about policies and claims)
 
 ep4 - Authorization. Extras (AuthorizationService & much more)
   used proj (Basics)
-  in this episode, he covers alot of stuff
+  in this episode, he covers alot of stuff (mostly showing how to add custom authorization handler)
   1. in DoStuff, he shows how to AuthorizeAsync within the method. The method can pass-in IAuthorizationService as a param
   and use that to call AuthorizeAsync with customPolicy and check any specific claim or something
   2. in startup, after adding services.AddAuthorization(config => ...), can add services.AddScope<IClaimsTransformation,>()
   to transform current context's identity claims. New temp claim can be added or removed on the fly by implementing 
   IClaimTransformation
-  3. 
+  3. In startup, services.AddSingleton<IAuthorizationPolicyProvider, CustomAuthorizationPolicyProvider>() is added to custom 
+  policies for authorization like [Authorize(Policy="Rank")] or [SecurityiLevel(10)]
+  In order to be able to use custom authorization attribute like [SecurityLevel], need to create class as
+  Public class SecurityLevelAttribute : AuthorizeAttribute
+  and in CustomAuthorizationPolicyProvider, implement GetPolicyAsync() which will return the policy by matching the 
+  attribute name
+  (Policy) contains (requirement) which has to have (AuthorizationHandler) 
+  Flow is - when user is using [securityLevel(5)] attibute, the program calls CustomAuthorizationPolicyProvider to look
+  for matching registered policy first. If found, it's returned back. Then program calls the handler to handle the 
+  verification. in handler, it does any kind of custom verification and call context.succeed(requirement) to grant
+  authorization.
+  4. OperationsController is implemented to demo how to use AuthorizationHandler using the operation
+  First, need to add the services.AddScope<IAuthorizationHandler, CookieJarAuthorizationHandler>
+  if you access /operations/open page, it will go to open() and IAuthorizationService.AuthorizeAsync() is called
+  to decide whether to grant or not. it takes 3 params (User, cookieJar, CookieAuthOperation.Open)
+  User - user context
+  CookieJar - the target object
+  CookieOperation.Open - what user is trying to do
+  Once above method is called, it will call the handler CookieJarAuthHandler:AuthorizationHandler<requirement,cookieJar>
+  in this hanlder, it will have the logic to check if the user should be authorized(granted) to cookieJar or not
 
 ep4b - Authorization. Razor Authorization
 
