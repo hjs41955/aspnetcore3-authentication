@@ -66,14 +66,14 @@ namespace Basics
                 config.Filters.Add(new AuthorizeFilter(defaultAuthPolicy));
             });
 
-            //services.AddRazorPages()
-            //    .AddRazorPagesOptions(config =>
-            //    {
-            //        config.Conventions.AuthorizePage("/Razor/Secured");
-            //        config.Conventions.AuthorizePage("/Razor/Policy", "Admin");
-            //        config.Conventions.AuthorizeFolder("/RazorSecured");
-            //        config.Conventions.AllowAnonymousToPage("/RazorSecured/Anon");
-            //    });
+            services.AddRazorPages()                                        //added in ep4b
+                .AddRazorPagesOptions(config =>
+                {
+                    config.Conventions.AuthorizePage("/Razor/Secured");
+                    config.Conventions.AuthorizePage("/Razor/Policy", "Admin");
+                    config.Conventions.AuthorizeFolder("/RazorSecured");
+                    config.Conventions.AllowAnonymousToPage("/RazorSecured/Anon");
+                });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -94,7 +94,7 @@ namespace Basics
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
-                //endpoints.MapRazorPages();
+                endpoints.MapRazorPages();                                      //added in ep4b
             });
         }
     }
