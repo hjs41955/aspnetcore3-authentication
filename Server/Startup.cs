@@ -20,7 +20,7 @@ namespace Server
                     var secretBytes = Encoding.UTF8.GetBytes(Constants.Secret);
                     var key = new SymmetricSecurityKey(secretBytes);
 
-                    config.Events = new JwtBearerEvents()
+                    config.Events = new JwtBearerEvents()                               //added in ep5. this allows you to add the jwt token in the url (instead of header)
                     {
                         OnMessageReceived = context =>
                         {
@@ -33,14 +33,16 @@ namespace Server
                         }
                     };
 
-                    config.TokenValidationParameters = new TokenValidationParameters()
+                    config.TokenValidationParameters = new TokenValidationParameters()  //added in ep5, this part validates the token
                     {
-                        ClockSkew = TimeSpan.Zero,
+                        //ClockSkew = TimeSpan.Zero,
                         ValidIssuer = Constants.Issuer,
                         ValidAudience = Constants.Audiance,
                         IssuerSigningKey = key,
                     };
                 });
+
+            //here nothing is specified (or no authorization policy is added. so if user is authenticated, then user is authorized by default
 
             services.AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
