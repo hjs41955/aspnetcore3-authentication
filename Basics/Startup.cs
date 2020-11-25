@@ -66,13 +66,13 @@ namespace Basics
                 config.Filters.Add(new AuthorizeFilter(defaultAuthPolicy));
             });
 
-            services.AddRazorPages()                                        //added in ep4b
+            services.AddRazorPages()                                                //added in ep4b
                 .AddRazorPagesOptions(config =>
                 {
-                    config.Conventions.AuthorizePage("/Razor/Secured");
-                    config.Conventions.AuthorizePage("/Razor/Policy", "Admin");
-                    config.Conventions.AuthorizeFolder("/RazorSecured");
-                    config.Conventions.AllowAnonymousToPage("/RazorSecured/Anon");
+                    config.Conventions.AuthorizePage("/Razor/Secured");             //this razor/secured page is accessible as long as authenticated 
+                    config.Conventions.AuthorizePage("/Razor/Policy", "Admin");     //this razor/policy page is accessible only if the user has Admin role
+                    config.Conventions.AuthorizeFolder("/RazorSecured");            //this makes the whole folder secured (can access when authenticated)
+                    config.Conventions.AllowAnonymousToPage("/RazorSecured/Anon");  //this make this page anonymouse accessible
                 });
         }
 
