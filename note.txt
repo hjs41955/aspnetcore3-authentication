@@ -86,7 +86,12 @@ ep4 - Authorization. Extras (AuthorizationService & much more)
   in this hanlder, it will have the logic to check if the user should be authorized(granted) to cookieJar or not
 
 ep4b - Authorization. Razor Authorization
-
+  used proj (basic)
+  in this episode, he shows how to authorize on Razor pages. Unlike regular MVC, razor pages may not have controllers,
+  so you cannot use regular attributes like [Authorize]. Instead, Razor pages need to specify this on the startup.cs
+  by adding services.AddRazorPAges().AddRazorPagesOptions(config => {config.convention.AuthorizePage("/secured")});
+  and also add endpoints.MapRazorPages() in the Configure.
+  
 ep5 - OAuth. JWT Bearer
 
 ep6 - OAuth. Auth Client
