@@ -93,6 +93,16 @@ ep4b - Authorization. Razor Authorization
   and also add endpoints.MapRazorPages() in the Configure.
   
 ep5 - OAuth. JWT Bearer
+  used proj (oauth folder's server)
+  in this episode, he shows how to authenticate using the JWT bearer token. To demo, he added a verification login
+  in ConfigureServices withi config.TokenValidationParameters to check for specific Issuer, Audience, and key. if all
+  3 values from token are matching what server is expecting, user will be authenticated. In this episode, there is no
+  specific authorize policy specified, so if user is authenticated, then user is authorized by default.
+  In HomeController, Authenticate(), he creates 2 claims (granny, sub) and creates a JWT token with claims, issuer,
+  audience, nbf, exp, and key). Thie Authenticate() method just creates the token and displays it.
+  can call the server/home/secret?access_token=[token] to access the secret end point.
+  He also added a way to pass-in the token as query instead of header (in startup.cs JwtBearerEvent() onMessageReceived), 
+  so we can easily test and call it from browser.
 
 ep6 - OAuth. Auth Client
 
