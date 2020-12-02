@@ -104,7 +104,36 @@ ep5 - OAuth. JWT Bearer
   He also added a way to pass-in the token as query instead of header (in startup.cs JwtBearerEvent() onMessageReceived), 
   so we can easily test and call it from browser.
 
-ep6 - OAuth. Auth Client
+ep6 - OAuth. Auth Client (Authorization Code flow)
+  used proj (OAuth folder's server, client)
+  in this episode, he shows how authorization code flow works. 
+  1. open browser and client and server pages open
+  2. from the client browser go to localhost:44342/home/secret
+  3. client's secret endpont is [Authorize], therefore the client will try to authenticate user first
+  4. client is setup to authorize user if authenticated, so when trying to access [Authorize] endpoint, it will try
+  to authenticate user first
+  5. client's startup is setup to authenticate user from cookie first
+  6. in this case, the cookie is empty, so it will try to authenticate using next method .AddOauth()
+  7. .AddOauth is setup with authrization endpoint and token endpont info along with client id, secret, callback path
+  8. so the ASP.NET knows it will call the server's authorize endpoint to get the authorization code first
+  9. Anton mimics the user login with simple user name text box
+  10. once the user types in the name and submit, it will call the authorize post endpoint to generate the auth code
+  11. auth code and state will be returned back to the client's callback URL. 
+  12. ASP.NET knows how to handle the callback URL, so I don't have to implement localhost:44342/oauth/callback
+  13. in the background (blackbox), ASP.NET receives the auth code and calls server's token endpoint with the auth code, state,
+  clientID, callback url, grant_Type (authorization code)
+  14. server's token endpoint will verify ithe auth code (not implemented in this example for simplification), and will 
+  generate the token with claims by signing the token and make it byte and add to the response body, and will redirect
+  back to the client's callback url
+  15. again, the ASP.NET will know how to receive the token in the background (without browser being involved) for security
+  16. once client receives the token, httpcontext.user.identity.isauthenticated = true
+  16. Anton shows how to add the claims to the httpcontext.user.identity.claims by adding an event to be fired everytime
+  the token is received. in the event handler, he decodes the response body and parses out the claims and add them to context
+  17. finally, the client's secret [Authorize] endpoint is reachable. one important thing to remember here is, the client's 
+  secret [authorize] endpoint isn't accessible with the Access token received from the server. This client's secret endpoint
+  is reachable since the client's startup is setup to automatically authorize if authenticated, and that's why after being
+  authenticated from the server, secret endpont is reachable. The access token received from the server is not used for any
+  thing in this episode. the token will be used in next episode to access the API (by adding to the Authorization header
 
 ep7 - OAuth. ecuring API
 
