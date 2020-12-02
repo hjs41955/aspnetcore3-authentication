@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Server.Controllers
 {
+    //class added in ep6. this class demos the simplified version of authorize endpoint and token endpoint of identity server
     public class OAuthController : Controller
     {
         [HttpGet]
@@ -42,21 +43,22 @@ namespace Server.Controllers
             query.Add("state", state);
 
 
-            return Redirect($"{redirectUri}{query.ToString()}");
+            return Redirect($"{redirectUri}{query.ToString()}");    //redirect to the client (caller)'s callback uri with the authorization code and state
         }
 
         public async Task<IActionResult> Token(
             string grant_type, // flow of access_token request
             string code, // confirmation of the authentication process
             string redirect_uri,
-            string client_id,
-            string refresh_token)
+            string client_id
+            //,string refresh_token
+            )
         {
-            // some mechanism for validating the code
+            // some mechanism for validating the code is to be added here
 
             var claims = new[]
           {
-                new Claim(JwtRegisteredClaimNames.Sub, "some_id"),
+                new Claim(JwtRegisteredClaimNames.Sub, "some_id"),      //add some dummy claims to the token
                 new Claim("granny", "cookie")
             };
 
@@ -66,14 +68,15 @@ namespace Server.Controllers
 
             var signingCredentials = new SigningCredentials(key, algorithm);
 
-            var token = new JwtSecurityToken(
+            var token = new JwtSecurityToken(                           //create an access token (which is made of jwt)
                 Constants.Issuer,
                 Constants.Audiance,
                 claims,
                 notBefore: DateTime.Now,
-                expires: grant_type == "refresh_token"
-                    ? DateTime.Now.AddMinutes(5)
-                    : DateTime.Now.AddMilliseconds(1),
+                expires: DateTime.Now.AddHours(1),
+                //expires: grant_type == "refresh_token"
+                    //? DateTime.Now.AddMinutes(5)
+                    //: DateTime.Now.AddMilliseconds(1),
                 signingCredentials);
 
             var access_token = new JwtSecurityTokenHandler().WriteToken(token);
@@ -83,15 +86,15 @@ namespace Server.Controllers
                 access_token,
                 token_type = "Bearer",
                 raw_claim = "oauthTutorial",
-                refresh_token = "RefreshTokenSampleValueSomething77"
+                //refresh_token = "RefreshTokenSampleValueSomething77"
             };
 
             var responseJson = JsonConvert.SerializeObject(responseObject);
             var responseBytes = Encoding.UTF8.GetBytes(responseJson);
 
-            await Response.Body.WriteAsync(responseBytes, 0, responseBytes.Length);
+            await Response.Body.WriteAsync(responseBytes, 0, responseBytes.Length); //add token to the response body
 
-            return Redirect(redirect_uri);
+            return Redirect(redirect_uri);      //token is sent back to the client directly to secure channel (not thru browser)
         }
 
         [Authorize]

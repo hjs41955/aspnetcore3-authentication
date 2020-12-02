@@ -15,6 +15,7 @@ using Newtonsoft.Json;
 
 namespace Client
 {
+    //this class is added in ep6
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services)
@@ -40,9 +41,9 @@ namespace Client
                     config.TokenEndpoint = "https://localhost:44382/oauth/token";
                     config.SaveTokens = true;
 
-                    config.Events = new OAuthEvents()
-                    {
-                        OnCreatingTicket = context =>
+                    config.Events = new OAuthEvents()       //this part is explained in ep06 at 47min of video
+                    {                                       //whenever token is recieved from the server, this event is triggered to read the payload and parse out
+                        OnCreatingTicket = context =>       //the claims and add those claims to requestContext.User.Identity
                         {
                             var accessToken = context.AccessToken;
                             var base64payload = accessToken.Split('.')[1];
@@ -50,7 +51,7 @@ namespace Client
                             var jsonPayload = Encoding.UTF8.GetString(bytes);
                             var claims = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonPayload);
 
-                            foreach(var claim in claims)
+                            foreach (var claim in claims)
                             {
                                 context.Identity.AddClaim(new Claim(claim.Key, claim.Value));
                             }
@@ -60,7 +61,7 @@ namespace Client
                     };
                 });
 
-            services.AddHttpClient();
+            //services.AddHttpClient();
 
             services.AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
