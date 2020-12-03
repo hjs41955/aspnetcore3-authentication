@@ -7,6 +7,7 @@ namespace Api.AuthRequirement
 {
     public class JwtRequirement : IAuthorizationRequirement { }
 
+    //this class added in ep7
     public class JwtRequirementHandler : AuthorizationHandler<JwtRequirement>
     {
         private readonly HttpClient _client;

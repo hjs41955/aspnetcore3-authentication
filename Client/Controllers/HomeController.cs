@@ -12,12 +12,11 @@ namespace Client.Controllers
 {
     public class HomeController : Controller
     {
-        //private readonly IHttpClientFactory _httpClientFactory;
-
-        //public HomeController(IHttpClientFactory httpClientFactory)
-        //{
-        //    _httpClientFactory = httpClientFactory;
-        //}
+        private readonly IHttpClientFactory _httpClientFactory;         //added in ep7
+        public HomeController(IHttpClientFactory httpClientFactory)     //added in ep7
+        {
+            _httpClientFactory = httpClientFactory;
+        }
 
         public IActionResult Index()
         {
@@ -28,12 +27,13 @@ namespace Client.Controllers
         public async Task<IActionResult> Secret()
         {
             var token = await HttpContext.GetTokenAsync("access_token");
+
             //var refreshToken = await HttpContext.GetTokenAsync("refresh_token");
 
-            //var client = _httpClientFactory.CreateClient();
-            //client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
-            //var serverResponse = await client.GetAsync("https://localhost:44382/secret/index");
-            //var apiResponse = await client.GetAsync("https://localhost:44332/secret/index");
+            var client = _httpClientFactory.CreateClient();                                         //added in ep7
+            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");                   //added in ep7
+            var serverResponse = await client.GetAsync("https://localhost:44382/secret/index");     //added in ep7
+            var apiResponse = await client.GetAsync("https://localhost:44332/secret/index");        //added in ep7
 
 
             //var serverResponse = await AccessTokenRefreshWrapper(

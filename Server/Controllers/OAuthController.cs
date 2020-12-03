@@ -98,7 +98,7 @@ namespace Server.Controllers
         }
 
         [Authorize]
-        public IActionResult Validate()
+        public IActionResult Validate()         //added in ep7
         {
             if (HttpContext.Request.Query.TryGetValue("access_token", out var accessToken))
             {

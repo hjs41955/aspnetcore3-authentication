@@ -61,7 +61,7 @@ namespace Client
                     };
                 });
 
-            //services.AddHttpClient();
+            services.AddHttpClient();               //added in ep7
 
             services.AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
