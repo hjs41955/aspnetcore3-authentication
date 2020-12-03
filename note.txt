@@ -135,7 +135,19 @@ ep6 - OAuth. Auth Client (Authorization Code flow)
   authenticated from the server, secret endpont is reachable. The access token received from the server is not used for any
   thing in this episode. the token will be used in next episode to access the API (by adding to the Authorization header
 
-ep7 - OAuth. ecuring API
+ep7 - OAuth. securing API
+  used proj (Server, Client, API)
+  in this episode, he shows how to use the token created in ep6 to call the API on another server (supposedly). 
+  1. he first adds a [Authorize] Validate endpoint in Server project which can only be called with the access token
+  2. usual way of implementing the API is using IdentityServer, but in this episode, he shows raw way and implements
+  blackbox (not shown to regular identity server users) by implementing the JwtRequirement
+  3. JwtRequirement class is created to show how the API's [Authorize] is leveraging the Identity Server
+  4. everytime [Authorize] endpoint of API is being accessed, JwtRequirement (custom requirement policy) is checked
+  first to do some custom checking
+  5. In HandleRequirementAsync(), it calls server's validate endpoint to check the access token's validity in a 
+  simple manner to demonstrate how it can be done if done manually (instead of leveraging IdentityServer 4 which does
+  everything automatically in the background)
+  6. if validated, context.Succeed(requirement) is called and caller can access API's [Authorize] end point
 
 ep8 - OAuth. Refresh Token
 
