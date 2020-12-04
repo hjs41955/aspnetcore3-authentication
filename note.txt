@@ -160,9 +160,23 @@ ep8 - OAuth. Refresh Token
   1. open https://localhost:44342/home/secret
   2. this secret endpont is [Authorize], and in previous episode we setup this Client startup to first check cookie
   if cookie isn't there, authenticate using the server by requesting the token. 
-  once client receives the token, httpcontext.user.identity.isauthenticated = true and authenticated
+  once client receives the token (access and refresh), httpcontext.user.identity.isauthenticated = true and authenticated
   3. since authenticated, it can enter the Client's [Authorize] Secret endpoint
-  4. in Secret(), it first
+  4. in Secret(), it first calls server's [Authorize] secret with the access-token received, but access-token is setup
+  to expire in milisecond, so accessing the server's secret() is denied with 401
+  5. next, it will call the server's Token() end point using the refresh token. in this case it will expire in 5 minutes
+  6. it calls the server's [authorize] secret() endpoint again with the new access-token and it succeeds
+  7. next, it calls the API's [Authorize] Secret() endpoint with the access-token (to be expired in 5 min) and it
+  also succeeds.
+  8. in the Client, when it recieves the access/refresh token, it updates the cookie and re-signe in using the cookie
+  9. if you click on the refresh of browser (from [client]/home/secret), the cookie is there, so won't need to 
+  re-authenticate since .isAuthenticated = true
+  10. since it's already authenticated, it will go into /home/secret without issues
+  11. in client's secret(), it will call server's secret() and api's secret() again, and if the current access-token is
+  expired, it will get a new access-token using the refresh-token just as prev steps. if the access-token isn't expired
+  it will go to server and api's secret() without getting a new access-token
+  12. if you delete the cookie and refresh, it will go thru login and getting the auth code and all the steps as you are
+  logging in for the first time
 
 ep9 - IdentityServer4. Client Credential (Introduction)
   used proj (IdentityServer, ApiOne, ApiTwo)
