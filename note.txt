@@ -150,6 +150,13 @@ ep7 - OAuth. securing API
   6. if validated, context.Succeed(requirement) is called and caller can access API's [Authorize] end point
 
 ep8 - OAuth. Refresh Token
+  used proj (Server, Client, API)
+  in this episode, he first shows the API is not authenticating. If authorize fails, it automatically chanllenges, and
+  if services.AddAuthentication(); is added, it means no authenticate is registered and will return 500. which menas,
+  if unauthorized user calls the the [Authorize] endpoing of API, it will return 500 instead of 401. Therefore, Anton
+  shows how to create a CustomAuthenticationHandler which always fails sincie API doesn't need to authenticate. This
+  makes the unauthorized call to [Authorize] end point to reutrn 401 which is correct.
+  Next, he shows how to implement Refresh token which is the major topic of the episode
 
 ep9 - IdentityServer4. Client Credential (Introduction)
   used proj (IdentityServer, ApiOne, ApiTwo)
