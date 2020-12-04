@@ -114,7 +114,7 @@ ep6 - OAuth. Auth Client (Authorization Code flow)
   to authenticate user first
   5. client's startup is setup to authenticate user from cookie first
   6. in this case, the cookie is empty, so it will try to authenticate using next method .AddOauth()
-  7. .AddOauth is setup with authrization endpoint and token endpont info along with client id, secret, callback path
+  7. .AddOauth is setup with authorization endpoint and token endpont info along with client id, secret, callback path
   8. so the ASP.NET knows it will call the server's authorize endpoint to get the authorization code first
   9. Anton mimics the user login with simple user name text box
   10. once the user types in the name and submit, it will call the authorize post endpoint to generate the auth code
@@ -122,7 +122,7 @@ ep6 - OAuth. Auth Client (Authorization Code flow)
   12. ASP.NET knows how to handle the callback URL, so I don't have to implement localhost:44342/oauth/callback
   13. in the background (blackbox), ASP.NET receives the auth code and calls server's token endpoint with the auth code, state,
   clientID, callback url, grant_Type (authorization code)
-  14. server's token endpoint will verify ithe auth code (not implemented in this example for simplification), and will 
+  14. server's token endpoint will verify the auth code (not implemented in this example for simplification), and will 
   generate the token with claims by signing the token and make it byte and add to the response body, and will redirect
   back to the client's callback url
   15. again, the ASP.NET will know how to receive the token in the background (without browser being involved) for security
@@ -150,13 +150,19 @@ ep7 - OAuth. securing API
   6. if validated, context.Succeed(requirement) is called and caller can access API's [Authorize] end point
 
 ep8 - OAuth. Refresh Token
-  used proj (Server, Client, API)
+  used proj (OAuth folder Server, Client, API)
   in this episode, he first shows the API is not authenticating. If authorize fails, it automatically chanllenges, and
   if services.AddAuthentication(); is added, it means no authenticate is registered and will return 500. which menas,
   if unauthorized user calls the the [Authorize] endpoing of API, it will return 500 instead of 401. Therefore, Anton
   shows how to create a CustomAuthenticationHandler which always fails sincie API doesn't need to authenticate. This
   makes the unauthorized call to [Authorize] end point to reutrn 401 which is correct.
   Next, he shows how to implement Refresh token which is the major topic of the episode
+  1. open https://localhost:44342/home/secret
+  2. this secret endpont is [Authorize], and in previous episode we setup this Client startup to first check cookie
+  if cookie isn't there, authenticate using the server by requesting the token. 
+  once client receives the token, httpcontext.user.identity.isauthenticated = true and authenticated
+  3. since authenticated, it can enter the Client's [Authorize] Secret endpoint
+  4. in Secret(), it first
 
 ep9 - IdentityServer4. Client Credential (Introduction)
   used proj (IdentityServer, ApiOne, ApiTwo)
