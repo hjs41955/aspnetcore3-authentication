@@ -13,15 +13,15 @@ namespace Api
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            ////having below line make it return 401 instead 500 if the token is expired
-            ////for API, if Authorization fails, then it will challenge you to authenticate. in that case, if we dont' have authenticate registered,
-            ////it will return 500. in this case, we rather fail the authenticate with CustomAuthenticationHandler, 
-            ////so it will return 401 which makes more sense
-            ////we can just completely remove below AddAuthentication, in that case if the token is expired or invalid, it will return 500
-            //services.AddAuthentication("DefaultAuth")
-            //    .AddScheme<AuthenticationSchemeOptions, CustomeAuthenticationHandler>("DefaultAuth", null);
+            //having below line make it return 401 instead 500 if the token is expired
+            //for API, if Authorization (line 26) fails, then it will challenge you to authenticate. in that case, if we dont' have authenticate registered,
+            //it will return 500. in this case, we rather fail the authenticate with CustomAuthenticationHandler, 
+            //so it will return 401 which makes more sense
+            //we can just completely remove below AddAuthentication, in that case if the token is expired or invalid, it will return 500
+            services.AddAuthentication("DefaultAuth")           //added in ep8
+                .AddScheme<AuthenticationSchemeOptions, CustomeAuthenticationHandler>("DefaultAuth", null);
 
-            services.AddAuthentication();
+            //services.AddAuthentication();
 
             services.AddAuthorization(config =>
             {

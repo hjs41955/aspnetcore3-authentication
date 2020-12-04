@@ -51,7 +51,7 @@ namespace Server.Controllers
             string code, // confirmation of the authentication process
             string redirect_uri,
             string client_id
-            //,string refresh_token
+            , string refresh_token                  //added in ep8
             )
         {
             // some mechanism for validating the code is to be added here
@@ -73,10 +73,10 @@ namespace Server.Controllers
                 Constants.Audiance,
                 claims,
                 notBefore: DateTime.Now,
-                expires: DateTime.Now.AddHours(1),
-                //expires: grant_type == "refresh_token"
-                    //? DateTime.Now.AddMinutes(5)
-                    //: DateTime.Now.AddMilliseconds(1),
+                //expires: DateTime.Now.AddHours(1),                    //removed in ep8
+                expires: grant_type == "refresh_token"                  //added in ep8
+                    ? DateTime.Now.AddMinutes(5)
+                    : DateTime.Now.AddMilliseconds(1),
                 signingCredentials);
 
             var access_token = new JwtSecurityTokenHandler().WriteToken(token);
@@ -86,7 +86,7 @@ namespace Server.Controllers
                 access_token,
                 token_type = "Bearer",
                 raw_claim = "oauthTutorial",
-                //refresh_token = "RefreshTokenSampleValueSomething77"
+                refresh_token = "RefreshTokenSampleValueSomething77"        //added in ep8
             };
 
             var responseJson = JsonConvert.SerializeObject(responseObject);

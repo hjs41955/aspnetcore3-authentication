@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Api
 {
+    //this class is added in ep8
     public class CustomeAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
         public CustomeAuthenticationHandler(
@@ -16,7 +17,7 @@ namespace Api
 
         protected override Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-            return Task.FromResult(AuthenticateResult.Fail("Failed Authentication"));
+            return Task.FromResult(AuthenticateResult.Fail("Failed Authentication"));   //there shouldn't be any authentication for API, so always fail the authentication if challenged
         }
     }
 }

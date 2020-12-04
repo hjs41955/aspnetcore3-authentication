@@ -35,7 +35,7 @@ namespace Server
 
                     config.TokenValidationParameters = new TokenValidationParameters()  //added in ep5, this part validates the token
                     {
-                        //ClockSkew = TimeSpan.Zero,
+                        ClockSkew = TimeSpan.Zero,              //added in ep8. this is to demonstrate the access token to be expired right away without 5 min grace period
                         ValidIssuer = Constants.Issuer,
                         ValidAudience = Constants.Audiance,
                         IssuerSigningKey = key,
