@@ -186,7 +186,10 @@ ep9 - IdentityServer4. Client Credential (Introduction)
   httpClient and calls the IdentityServer to get the token using Client Credential flow
   then it calls the ApiOne/secret [Authorize] with this token added to the header
   For ApiOne, in the ConfigureServices, it tells, it is authenticating from the IdentityServer using Bearer token (oidc)
-  therefore, any [Authorize] method in ApiOne must have a token dealt out from IdentityServer with scope (ApiOne)
+  therefore, any [Authorize] method in ApiOne must have a token dealt out from IdentityServer with scope (ApiOne).
+  One thing to pay attention is, unlike previous episode, in this episode, in IdentityServer startup class,
+  it doesn't call services.AddAuthentication() or services.AddAuthorization(), but instead, services.AddIdentityServer()
+  is added. Same in the Configure(). app.UseIdentityServer() is added instead of add.UseAuthentication or UseAuthorization()
 
 ep10 - IdentityServer4. Authorization Code Flow
   used proj (IdentityServer, MvcClient)
