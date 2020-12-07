@@ -204,6 +204,9 @@ ep11 - IdentityServer4. Identity Login & Register
   it will be automatically directed to IdentityServer's login page (since the authorization-code flow is used)
   If the user is successfully registered or logged-in, it user is authenticated and will be re-directed to 
   mvcClient/home/secret page
+  In IdentitiyServer, all the AuthorizationCode handling and Token handling are hidden behind and don't need to imlement.
+  Also the call back url of the client localhost:44322/signin-oidc is automatically implmented and receives the callback
+  from the IdentityServer without me knowing or implementing.
 
 ep12 - IdentityServer4. Cookie, id-token, access token, claims
   used proj (IdentityServer, ApiOne, MvcClient)
