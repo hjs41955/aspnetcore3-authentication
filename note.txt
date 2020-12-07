@@ -194,6 +194,9 @@ ep9 - IdentityServer4. Client Credential (Introduction)
 ep10 - IdentityServer4. Authorization Code Flow
   used proj (IdentityServer, MvcClient)
   in this episode, it just prepares and create MvcClient to use authorization-code flow for openID connect for ep11
+  MvcClient is setup in startup.cs to authenticate via IdentityServer using OIDC uaing auth-code flow. 
+  When launched, localhost:44322/home/secret will be redirected to the server and shown some error. this is where Anton
+  stopped the episode for next episode
 
 ep11 - IdentityServer4. Identity Login & Register
   used proj (IdentitiyServer, MvcClient)
